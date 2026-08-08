@@ -9,7 +9,7 @@ export const APP_ORIGIN = "https://humeur.dev"
 
 export const links = {
   home: `${APP_ORIGIN}/`,
-  app: `${APP_ORIGIN}/app`,
+  app: `https://app.humeur.dev`,
   signIn: `${APP_ORIGIN}/sign-in`,
   /** Free, on every plan, no account. Never put this behind anything. */
   crisis: `${APP_ORIGIN}/crisis`,
