@@ -1,0 +1,415 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Humeur design tokens
+
+   Stored as raw HSL channel triplets on :root, exactly as the app stores
+   them, so a token can be lifted from here into the app (or the reverse)
+   without rewriting it. The @theme inline block below maps them onto
+   Tailwind colour utilities.
+
+   `inline` matters: it makes `bg-surface` compile to `hsl(var(--surface))`
+   rather than resolving the value at build time, so flipping --surface at
+   runtime re-themes the page. That is why there are almost no dark: variants
+   in this codebase — the tokens do the work.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ── Light ─────────────────────────────────────────────────────────── */
+  --background: 40 75% 92%;
+  --surface: 40 100% 98%;
+  --border: 38 52% 83%;
+  --border-strong: 38 48% 74%;
+  --foreground: 26 18% 15%;
+
+  /* The design system's --muted-foreground is 40 20% 48%, which measures
+     3.28:1 on --background and 2.93:1 on --accent-surface. That is below
+     WCAG AA for anything under 24px, and most secondary copy here is 14–15px.
+     Both are kept: --muted-foreground for large text, --muted-strong (5.06:1
+     / 4.53:1) for everything else. Flagged for the app's token file too. */
+  --muted-foreground: 40 20% 48%;
+  --muted-strong: 40 20% 37%;
+
+  --accent-surface: 40 65% 86%;
+  --accent: 39 87% 62%;
+  --on-accent: 26 18% 15%;
+  --danger: 353 60% 43%;
+
+  /* Reserved for crisis-helpline surfaces. Nothing else may use it. */
+  --crisis: 0 85% 36%;
+  --crisis-surface: 0 60% 95%;
+  --crisis-border: 0 55% 82%;
+
+  --radius: 1rem;
+
+  /* ── Mood scale — theme-invariant ──────────────────────────────────────
+     Seven levels running monotonically from L* 5.0 to 90.0, verified against
+     protanopia, deuteranopia and tritanopia at ΔE2000 >= 10.4 for every pair.
+     The ordered lightness ramp is what makes the calendar readable without
+     colour vision.
+
+     Never reorder. Never substitute. Never apply opacity to a fill — that
+     flattens the ramp and takes the meaning with it. A Crisis entry must look
+     identical in both themes, which is why these sit outside the theme flip.  */
+  --mood-crisis: 220 15% 7%;
+  --mood-awful: 205 99% 28%;
+  --mood-bad: 250 31% 56%;
+  --mood-not-great: 136 26% 53%;
+  --mood-okay: 92 39% 59%;
+  --mood-good: 355 84% 81%;
+  --mood-great: 50 90% 73%;
+
+  /* Admission glyph. Also theme-invariant, because the swatches underneath
+     it are: a pale plate carries the mark on the dark end of the scale, the
+     mark carries it on the pale end. A single-tone glyph measured 1.20:1 on
+     --mood-awful, which is not "hard to read", it is invisible. */
+  --admission-plate: 40 100% 98%;
+  --admission-mark: 353 60% 43%;
+}
+
+/* ── Dark ──────────────────────────────────────────────────────────────────
+   The design system specifies --background and --surface for dark, plus
+   "accent flips gold to lavender". The rest is derived here and contrast
+   checked: foreground 15.09:1, muted 8.15:1, accent 7.61:1 on --background.
+
+   --crisis also had to be derived. #AA0E0E on #181B27 is roughly 1:1 and
+   simply unreadable, so crisis surfaces get a light mark on a dark tint
+   (5.13:1). It stays reserved for helpline surfaces in both themes.        */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: 228 24% 12%;
+    --surface: 227 18% 16%;
+    --border: 228 14% 26%;
+    --border-strong: 228 13% 38%;
+    --foreground: 40 28% 93%;
+    --muted-foreground: 40 14% 68%;
+    --muted-strong: 40 14% 68%;
+    --accent-surface: 230 16% 23%;
+    --accent: 258 72% 78%;
+    --on-accent: 228 24% 12%;
+    --danger: 353 70% 68%;
+    --crisis: 0 80% 68%;
+    --crisis-surface: 0 35% 16%;
+    --crisis-border: 0 40% 34%;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: 228 24% 12%;
+  --surface: 227 18% 16%;
+  --border: 228 14% 26%;
+  --border-strong: 228 13% 38%;
+  --foreground: 40 28% 93%;
+  --muted-foreground: 40 14% 68%;
+  --muted-strong: 40 14% 68%;
+  --accent-surface: 230 16% 23%;
+  --accent: 258 72% 78%;
+  --on-accent: 228 24% 12%;
+  --danger: 353 70% 68%;
+  --crisis: 0 80% 68%;
+  --crisis-surface: 0 35% 16%;
+  --crisis-border: 0 40% 34%;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Tailwind theme
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-surface: hsl(var(--surface));
+  --color-border: hsl(var(--border));
+  --color-border-strong: hsl(var(--border-strong));
+  --color-foreground: hsl(var(--foreground));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted-strong: hsl(var(--muted-strong));
+  --color-accent-surface: hsl(var(--accent-surface));
+  --color-accent: hsl(var(--accent));
+  --color-on-accent: hsl(var(--on-accent));
+  --color-danger: hsl(var(--danger));
+  --color-crisis: hsl(var(--crisis));
+  --color-crisis-surface: hsl(var(--crisis-surface));
+  --color-crisis-border: hsl(var(--crisis-border));
+
+  --color-mood-crisis: hsl(var(--mood-crisis));
+  --color-mood-awful: hsl(var(--mood-awful));
+  --color-mood-bad: hsl(var(--mood-bad));
+  --color-mood-not-great: hsl(var(--mood-not-great));
+  --color-mood-okay: hsl(var(--mood-okay));
+  --color-mood-good: hsl(var(--mood-good));
+  --color-mood-great: hsl(var(--mood-great));
+
+  --color-admission-plate: hsl(var(--admission-plate));
+  --color-admission-mark: hsl(var(--admission-mark));
+
+  /* Paper is paper. The printed summary does not invert with the theme,
+     because the thing it depicts comes out of a printer. */
+  --color-paper: #fffcf5;
+  --color-paper-ink: #2d251f;
+  --color-paper-muted: #5c4f42;
+  --color-paper-rule: #eadabd;
+
+  /* Astro's fonts API owns --font-humeur-*; these are the Tailwind
+     namespaces built on top, giving font-display / font-sans / font-mono. */
+  --font-display: var(--font-humeur-display);
+  --font-sans: var(--font-humeur-ui);
+  --font-mono: var(--font-humeur-mono);
+
+  --radius-squircle: 24%;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Base
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    outline: 3px solid hsl(var(--foreground));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: hsl(var(--accent));
+    color: hsl(var(--on-accent));
+  }
+
+  /* Vestibular symptoms are common in this audience and smooth scrolling on
+     a long page is one of the triggers. Everything here degrades to instant. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* ── Mood cell ──────────────────────────────────────────────────────────
+     Rendering rules taken from components/CalendarViews/MoodCell.tsx:
+       logged   -> mood fill, 1px solid --border
+       unlogged -> dashed --border-strong/0.75 on --border/0.05
+       padding  -> --accent-surface with a lowercase x, no number
+       split    -> linear-gradient(135deg, am 50%, pm 50%), AM top-left
+     The day number sits below the cell in the grid views and is overlaid
+     only in the day view.                                                  */
+  .mood-cell {
+    display: grid;
+    place-items: center;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 24%;
+    background: hsl(var(--border) / 0.05);
+    border: 1px dashed hsl(var(--border-strong) / 0.75);
+  }
+
+  .mood-cell[data-state="solid"] {
+    background: hsl(var(--cell-am));
+    border: 1px solid hsl(var(--border));
+    border-style: solid;
+  }
+
+  .mood-cell[data-state="split"] {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--cell-am)) 50%,
+      hsl(var(--cell-pm)) 50%
+    );
+    border: 1px solid hsl(var(--border));
+    border-style: solid;
+  }
+
+  .mood-cell[data-state="pad"] {
+    background: hsl(var(--accent-surface));
+    border: 0;
+    color: hsl(var(--muted-strong));
+    font-size: 0.6875rem;
+    line-height: 1;
+  }
+
+  /* Two-tone admission glyph — a pale plate with the red mark inset, and the
+     cross cut out of the mark in the plate colour. Whichever end of the mood
+     scale the swatch underneath sits at, one of the two tones separates the
+     glyph from it. */
+  .admission-glyph {
+    width: 58%;
+    height: 58%;
+    border-radius: 19%;
+    background: hsl(var(--admission-plate));
+    display: grid;
+    place-items: center;
+  }
+
+  .admission-glyph > i {
+    display: block;
+    position: relative;
+    width: 82%;
+    height: 82%;
+    border-radius: 14%;
+    background: hsl(var(--admission-mark));
+  }
+
+  .admission-glyph > i::before,
+  .admission-glyph > i::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background: hsl(var(--admission-plate));
+  }
+
+  .admission-glyph > i::before {
+    width: 52%;
+    height: 17%;
+  }
+
+  .admission-glyph > i::after {
+    width: 17%;
+    height: 52%;
+  }
+
+  /* ── Prose ──────────────────────────────────────────────────────────────
+     Hand-written rather than @tailwindcss/typography: the plugin would need
+     re-theming against every token here to stop looking like a different
+     site, which is more configuration than the forty lines it replaces.
+
+     Measure is capped around 68 characters. Long lines are harder to track
+     back to the start of, which matters more than usual for readers whose
+     concentration is part of what they're here about.                    */
+  .prose {
+    max-width: 38rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: hsl(var(--foreground));
+  }
+
+  .prose > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .prose h2,
+  .prose h3 {
+    font-family: var(--font-humeur-display);
+    letter-spacing: -0.018em;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  .prose h2 {
+    margin-top: 2.75rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .prose h3 {
+    margin-top: 2rem;
+    font-size: 1.1875rem;
+    font-weight: 600;
+  }
+
+  .prose a {
+    color: hsl(var(--foreground));
+    text-decoration: underline;
+    text-decoration-color: hsl(var(--accent));
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .prose a:hover {
+    background: hsl(var(--accent-surface));
+  }
+
+  .prose strong {
+    font-weight: 600;
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-left: 1.375rem;
+  }
+
+  .prose ul {
+    list-style: disc;
+  }
+
+  .prose ol {
+    list-style: decimal;
+  }
+
+  .prose li + li {
+    margin-top: 0.5rem;
+  }
+
+  .prose li::marker {
+    color: hsl(var(--muted-strong));
+  }
+
+  .prose blockquote {
+    border-left: 2.5px solid hsl(var(--accent));
+    padding-left: 1.125rem;
+    color: hsl(var(--muted-strong));
+  }
+
+  .prose code {
+    font-family: var(--font-humeur-mono);
+    font-size: 0.875em;
+    background: hsl(var(--accent-surface));
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.3125rem;
+  }
+
+  .prose pre {
+    background: hsl(var(--surface));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .prose pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .prose hr {
+    border: 0;
+    border-top: 1px solid hsl(var(--border));
+    margin-block: 2.5rem;
+  }
+
+  .prose img {
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border));
+  }
+}

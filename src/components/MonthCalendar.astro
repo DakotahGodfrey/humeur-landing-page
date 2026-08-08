@@ -1,0 +1,89 @@
+---
+import MoodCell from "./MoodCell.astro"
+import {
+  MONTH_NAMES,
+  WEEKDAYS_SHORT,
+  describeDay,
+  describeMonth,
+  monthAverage,
+  monthCells,
+} from "@/lib/calendar"
+
+/**
+ * The app's month view: Sunday-first weeks, squircle cells, the day number
+ * *below* the cell rather than inside it, and the numeric average in the
+ * header ("avg 3.3").
+ *
+ * The grid carries one aria-label describing the month as a whole. Thirty-odd
+ * individually announced cells is noise, not access — the summary is what
+ * someone actually wants, and the export sheet carries the detail.
+ */
+
+interface Props {
+  year: number
+  month: number
+  compact?: boolean
+  showAverage?: boolean
+}
+
+const { year, month, compact = false, showAverage = true } = Astro.props
+
+const cells = monthCells(year, month)
+const average = monthAverage(year, month)
+---
+
+<figure class="m-0">
+  <figcaption
+    class="mb-3.5 flex items-baseline justify-between gap-4 font-mono text-[13px] tracking-[0.02em]"
+  >
+    <span class="text-foreground">
+      {MONTH_NAMES[month - 1]}
+      <span class="font-normal text-muted-strong">{year}</span>
+    </span>
+    {
+      showAverage && average !== null && (
+        <span class="text-[11px] tracking-[0.06em] text-muted-strong">
+          avg <b class="font-medium text-foreground">{average}</b>
+        </span>
+      )
+    }
+  </figcaption>
+
+  <div
+    class:list={[
+      "mb-1.5 grid grid-cols-7 text-center font-mono tracking-[0.04em] text-muted-strong",
+      compact ? "gap-1 text-[8px]" : "gap-1.5 text-[10px]",
+    ]}
+    aria-hidden="true"
+  >
+    {WEEKDAYS_SHORT.map((d) => <span>{d}</span>)}
+  </div>
+
+  <div
+    class:list={["grid grid-cols-7", compact ? "gap-x-1 gap-y-1.5" : "gap-x-1.5 gap-y-2"]}
+    role="img"
+    aria-label={describeMonth(year, month)}
+  >
+    {
+      cells.map((cell) =>
+        cell.date ? (
+          <span class="block" title={describeDay(cell.date, cell.entry)}>
+            <MoodCell entry={cell.entry} />
+            <span
+              class:list={[
+                "block text-center font-mono leading-[1.5] text-muted-strong",
+                compact ? "text-[9px]" : "text-[10px]",
+              ]}
+            >
+              {cell.dayOfMonth}
+            </span>
+          </span>
+        ) : (
+          <span class="block">
+            <MoodCell entry={null} pad />
+          </span>
+        )
+      )
+    }
+  </div>
+</figure>

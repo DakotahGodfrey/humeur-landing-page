@@ -1,0 +1,13 @@
+# pnpm settings live here rather than in package.json as of pnpm 10+.
+# This project is a single package, not a workspace — the file exists purely
+# because it is where pnpm now reads configuration from.
+
+# pnpm blocks dependency postinstall scripts by default, which is the right
+# default: a postinstall is arbitrary code from a transitive dependency.
+# esbuild's fetches its platform binary, and Astro's build fails without it,
+# so it is allowed deliberately.
+#
+# Adding to this list should be a decision, not a reflex. If a new package
+# starts asking for a build, find out what its script does before saying yes.
+allowBuilds:
+  esbuild: true

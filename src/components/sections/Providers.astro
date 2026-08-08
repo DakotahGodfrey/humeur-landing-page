@@ -1,0 +1,52 @@
+---
+import Section from "../Section.astro"
+import Panel from "../Panel.astro"
+import { useTranslations } from "@/i18n"
+
+const t = useTranslations()
+---
+
+<Section id="providers" index="06" label={t.providers.section}>
+  <h2
+    class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+  >
+    {t.providers.heading}
+  </h2>
+  <p class="max-w-[40rem] text-[17px] text-muted-strong">{t.providers.lead}</p>
+
+  <Panel label={t.providers.panelLabel} meta={t.providers.resultCount} flush class="mt-7">
+    <ul class="flex flex-wrap gap-1.5 border-b border-border p-3.5" aria-label={t.providers.filtersLabel}>
+      {
+        t.providers.filters.map((f) => (
+          <li
+            class:list={[
+              "rounded-md border px-2.5 py-[5px] font-mono text-[10px] tracking-[0.08em] whitespace-nowrap uppercase",
+              f.on
+                ? "border-foreground/40 bg-accent-surface font-medium text-foreground"
+                : "border-border-strong text-muted-strong",
+            ]}
+          >
+            {f.label}
+          </li>
+        ))
+      }
+    </ul>
+    <ul aria-label={t.providers.resultsLabel}>
+      {
+        t.providers.results.map((r) => (
+          <li class="grid grid-cols-[3.5rem_1fr] items-baseline gap-3.5 border-b border-border px-3.5 py-3 last:border-b-0">
+            <span class="font-mono text-[11px] text-muted-strong">{r.distance}</span>
+            <span>
+              <span class="block text-sm font-semibold">{r.name}</span>
+              <span class="mt-0.5 block font-mono text-[10px] tracking-[0.06em] text-muted-strong uppercase">
+                {r.type}
+              </span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </Panel>
+
+  <p class="mt-5 max-w-[40rem] text-[17px] text-muted-strong">{t.providers.close}</p>
+</Section>

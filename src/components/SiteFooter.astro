@@ -1,0 +1,34 @@
+---
+import { useTranslations } from "@/i18n"
+
+const t = useTranslations()
+---
+
+<footer class="border-t border-border-strong pt-10 pb-14">
+  <div class="mx-auto w-full max-w-[78rem] px-4 sm:px-8">
+    <div
+      class="flex flex-wrap items-baseline justify-between gap-4 border-b border-border pb-5"
+    >
+      <p class="font-display text-base">{t.footer.tagline}</p>
+      <nav
+        class="flex flex-wrap gap-4.5 font-mono text-[11px] tracking-[0.08em] uppercase"
+        aria-label={t.nav.footer}
+      >
+        {
+          t.footer.links.map((link) => (
+            <a href={link.href} class="text-muted-strong no-underline hover:text-foreground hover:underline">
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    {/* The disclaimer is never collapsed, never a tooltip, never below a fold
+        that a reader has to look for. It's the last thing on the page and it
+        is meant to be read. */}
+    <p class="mt-5 max-w-[48rem] text-xs leading-[1.65] text-muted-strong">
+      {t.footer.fine}
+    </p>
+  </div>
+</footer>

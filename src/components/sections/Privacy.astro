@@ -1,0 +1,50 @@
+---
+import Section from "../Section.astro"
+import { useTranslations } from "@/i18n"
+
+/**
+ * Capability, then limit, then cost, in that order.
+ *
+ * The limit and the cost are not disclaimers to be tucked away — they're the
+ * reason the capability is believable. A privacy section with no downside in
+ * it reads like marketing; one that volunteers what the server can still see,
+ * and what happens if you lose your recovery code, reads like an engineer
+ * telling you the truth. Don't cut them for length.
+ */
+
+const t = useTranslations()
+---
+
+<Section id="privacy" index="05" label={t.privacy.section}>
+  <h2
+    class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+  >
+    {t.privacy.heading}
+  </h2>
+
+  <div class="mt-7 border-t border-border-strong">
+    {
+      t.privacy.rows.map((row) => (
+        <div class="grid gap-2 border-b border-border py-5.5 md:grid-cols-[10rem_1fr] md:items-baseline md:gap-8">
+          <p class="font-mono text-[10px] tracking-[0.13em] uppercase">
+            <b
+              class:list={[
+                "block font-medium",
+                "tone" in row && row.tone === "cost" ? "text-danger" : "text-foreground",
+              ]}
+            >
+              {row.key}
+            </b>
+            <i class="mt-1 block tracking-[0.06em] text-muted-strong not-italic">{row.sub}</i>
+          </p>
+          <div>
+            <p class="max-w-[44rem] leading-[1.65]">{row.body}</p>
+            {"aside" in row && row.aside && (
+              <p class="mt-2.5 max-w-[44rem] leading-[1.65] text-muted-strong">{row.aside}</p>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Section>

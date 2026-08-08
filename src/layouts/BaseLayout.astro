@@ -1,0 +1,63 @@
+---
+import { Font } from "astro:assets"
+import SiteHeader from "@/components/SiteHeader.astro"
+import SiteFooter from "@/components/SiteFooter.astro"
+import { useTranslations, defaultLocale, type Locale } from "@/i18n"
+import "@/styles/global.css"
+
+interface Props {
+  locale?: Locale
+  title?: string
+  description?: string
+}
+
+const { locale = defaultLocale, title, description } = Astro.props
+const t = useTranslations(locale)
+
+const pageTitle = title ?? t.meta.title
+const pageDescription = description ?? t.meta.description
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://humeur.dev")
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta name="color-scheme" content="light dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    {/* Self-hosted and preloaded, so there's no third-party request before
+        first paint and no swap flash on the display face. */}
+    <Font cssVariable="--font-humeur-ui" preload />
+    <Font cssVariable="--font-humeur-display" preload />
+    <Font cssVariable="--font-humeur-mono" />
+  </head>
+
+  <body>
+    <a
+      href="#main"
+      class="absolute top-0 -left-[9999px] z-50 rounded-br-[var(--radius)] border-2 border-foreground bg-surface px-5 py-3 font-semibold text-foreground focus:left-0"
+    >
+      {t.nav.skip}
+    </a>
+
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

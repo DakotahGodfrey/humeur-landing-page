@@ -1,0 +1,93 @@
+---
+import { useTranslations } from "@/i18n"
+
+const t = useTranslations()
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  class="inline-flex cursor-pointer items-center gap-2 rounded-lg border-[1.5px] border-border-strong bg-transparent px-2.5 py-[5px] font-mono text-[11px] tracking-[0.06em] text-muted-strong uppercase hover:bg-accent-surface hover:text-foreground"
+  aria-live="polite"
+  data-label-dark={t.theme.dark}
+  data-label-light={t.theme.light}
+  data-aria-to-dark={t.theme.toDark}
+  data-aria-to-light={t.theme.toLight}
+>
+  <svg
+    class="i-moon size-3.5 flex-none"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    aria-hidden="true"
+  >
+    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path>
+  </svg>
+  <svg
+    class="i-sun size-3.5 flex-none"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path
+      d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+    ></path>
+  </svg>
+  <span id="theme-toggle-label">{t.theme.dark}</span>
+</button>
+
+<style>
+  /* Which icon shows follows the *effective* theme, so it stays right whether
+     the theme came from the OS or from this button. */
+  .i-sun {
+    display: none;
+  }
+  :global(:root[data-theme="dark"]) .i-sun {
+    display: block;
+  }
+  :global(:root[data-theme="dark"]) .i-moon {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .i-sun {
+      display: block;
+    }
+    :global(:root:not([data-theme="light"])) .i-moon {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // No storage. A theme preference is a small thing, and the page defaults to
+  // whatever the operating system already says — which is the setting most
+  // people have actually thought about.
+  const root = document.documentElement
+  const btn = document.getElementById("theme-toggle")
+  const label = document.getElementById("theme-toggle-label")
+  const mq = window.matchMedia("(prefers-color-scheme: dark)")
+
+  const current = () => root.dataset.theme ?? (mq.matches ? "dark" : "light")
+
+  // Strings come off the element rather than being inlined here, so this
+  // still works when the other three locales land.
+  function sync() {
+    if (!btn || !label) return
+    const isDark = current() === "dark"
+    const d = btn.dataset
+    label.textContent = isDark ? (d.labelLight ?? "Light") : (d.labelDark ?? "Dark")
+    btn.setAttribute("aria-label", isDark ? (d.ariaToLight ?? "") : (d.ariaToDark ?? ""))
+  }
+
+  btn?.addEventListener("click", () => {
+    root.dataset.theme = current() === "dark" ? "light" : "dark"
+    sync()
+  })
+
+  mq.addEventListener("change", sync)
+  sync()
+</script>

@@ -1,0 +1,1297 @@
+{
+ "_comment": "Demo history for the landing page illustrations. One hand-authored year for a single fictional person: a stable autumn, a decline through November, a December admission, recovery, a June collapse with a five-day admission, a July logging gap, a levelling August. Committed as a fixture rather than generated at build time so the page keeps matching the mockup that was signed off. Not real data.",
+ "_range": {
+  "from": "2025-09-01",
+  "to": "2026-08-08"
+ },
+ "entries": {
+  "2025-09-01": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-02": {
+   "am": "okay",
+   "pm": "not-great"
+  },
+  "2025-09-03": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2025-09-04": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-05": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-06": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-07": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-09-08": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-09": {
+   "am": "good",
+   "pm": "not-great"
+  },
+  "2025-09-10": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-11": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2025-09-12": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2025-09-13": {
+   "am": "good",
+   "pm": "not-great"
+  },
+  "2025-09-14": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2025-09-15": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-16": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2025-09-17": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2025-09-18": {
+   "am": "good",
+   "pm": "okay"
+  },
+  "2025-09-19": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-20": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2025-09-21": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2025-09-22": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2025-09-23": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2025-09-24": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2025-09-25": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-26": {
+   "am": "okay",
+   "pm": "not-great"
+  },
+  "2025-09-27": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-09-28": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2025-09-29": {
+   "am": "not-great",
+   "pm": "okay"
+  },
+  "2025-09-30": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-01": {
+   "am": "okay",
+   "pm": "not-great"
+  },
+  "2025-10-02": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2025-10-03": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2025-10-04": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-05": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-06": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2025-10-07": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2025-10-08": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-10": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2025-10-11": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2025-10-12": {
+   "am": "okay",
+   "pm": "not-great"
+  },
+  "2025-10-14": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-10-15": {
+   "am": "bad",
+   "pm": "awful"
+  },
+  "2025-10-16": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-17": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2025-10-18": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-20": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-21": {
+   "am": "not-great",
+   "pm": "bad"
+  },
+  "2025-10-22": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-10-23": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-10-24": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-10-25": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-10-26": {
+   "am": "not-great",
+   "pm": "bad"
+  },
+  "2025-10-27": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2025-10-28": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-29": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-10-30": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-10-31": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-11-01": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-11-02": {
+   "am": "not-great",
+   "pm": "good"
+  },
+  "2025-11-03": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2025-11-04": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-11-05": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2025-11-06": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-11-07": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-11-08": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-11-09": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-11-10": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-11-11": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-11-12": {
+   "am": "not-great",
+   "pm": "okay"
+  },
+  "2025-11-13": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2025-11-14": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2025-11-15": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-11-16": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-11-17": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2025-11-18": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2025-11-19": {
+   "am": "not-great",
+   "pm": "good"
+  },
+  "2025-11-20": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-11-21": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-11-22": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2025-11-23": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-11-24": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-11-25": {
+   "am": "awful",
+   "pm": "bad"
+  },
+  "2025-11-26": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-11-27": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-11-28": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-11-29": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-11-30": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-12-01": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-02": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-12-03": {
+   "am": "awful",
+   "pm": "crisis"
+  },
+  "2025-12-04": {
+   "am": "not-great",
+   "pm": "not-great",
+   "admission": true
+  },
+  "2025-12-05": {
+   "am": "not-great",
+   "pm": "bad",
+   "admission": true
+  },
+  "2025-12-06": {
+   "am": "bad",
+   "pm": "bad",
+   "admission": true
+  },
+  "2025-12-07": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-12-08": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-12-09": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-12-10": {
+   "am": "bad",
+   "pm": "awful"
+  },
+  "2025-12-11": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-12": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-12-13": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-14": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-12-15": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-16": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-12-17": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-18": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-19": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-20": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2025-12-21": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-12-23": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-25": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-12-26": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2025-12-27": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-28": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-30": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2025-12-31": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-01-01": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-01-02": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-01-03": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-01-04": {
+   "am": "bad",
+   "pm": "okay"
+  },
+  "2026-01-05": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-01-06": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-01-07": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-01-08": {
+   "am": "not-great",
+   "pm": "bad"
+  },
+  "2026-01-09": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-01-10": {
+   "am": "bad",
+   "pm": "okay"
+  },
+  "2026-01-11": {
+   "am": "not-great",
+   "pm": "good"
+  },
+  "2026-01-12": {
+   "am": "not-great",
+   "pm": "bad"
+  },
+  "2026-01-13": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-01-14": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-01-15": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-01-16": {
+   "am": "not-great",
+   "pm": "okay"
+  },
+  "2026-01-18": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-01-19": {
+   "am": "bad",
+   "pm": "okay"
+  },
+  "2026-01-20": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-01-21": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-01-22": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-01-23": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-01-24": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-01-25": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-01-26": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-01-27": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-01-28": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-01-29": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-01-30": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-01-31": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-02-01": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-02": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-02-03": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-02-04": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-02-05": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-06": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-02-07": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-08": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-02-09": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-02-10": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-11": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-12": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-02-13": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-02-14": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-02-15": {
+   "am": "great",
+   "pm": "good"
+  },
+  "2026-02-16": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-17": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-02-18": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-02-19": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-02-20": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-02-21": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-22": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-23": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-24": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-02-25": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-02-26": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-02-27": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2026-02-28": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-01": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-02": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-03-03": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-04": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-03-05": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-03-06": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-03-07": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-08": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-03-09": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-10": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-11": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-03-12": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-13": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-03-14": {
+   "am": "okay",
+   "pm": "not-great"
+  },
+  "2026-03-15": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-16": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-18": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-03-19": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-20": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-03-21": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-23": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-03-24": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-03-25": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-03-26": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-03-27": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2026-03-28": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-03-30": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2026-03-31": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-04-01": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2026-04-02": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-04-03": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-04-04": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-04-06": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-04-07": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-04-08": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-04-09": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-04-10": {
+   "am": "not-great",
+   "pm": "good"
+  },
+  "2026-04-11": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-04-12": {
+   "am": "not-great",
+   "pm": "bad"
+  },
+  "2026-04-13": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-04-14": {
+   "am": "not-great",
+   "pm": "good"
+  },
+  "2026-04-15": {
+   "am": "not-great",
+   "pm": "good"
+  },
+  "2026-04-16": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-04-17": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2026-04-18": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-04-19": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-04-20": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-04-21": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-04-22": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-04-23": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-04-24": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-04-25": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-04-26": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-04-27": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-04-28": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-04-29": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-04-30": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-05-01": {
+   "am": "good",
+   "pm": "okay"
+  },
+  "2026-05-02": {
+   "am": "okay",
+   "pm": "good"
+  },
+  "2026-05-03": {
+   "am": "good",
+   "pm": "okay"
+  },
+  "2026-05-04": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-05": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-05-06": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-07": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2026-05-08": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-09": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-05-10": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-05-11": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-05-12": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-13": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-05-14": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-15": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-16": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-17": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-05-18": {
+   "am": "good",
+   "pm": "not-great"
+  },
+  "2026-05-19": {
+   "am": "great",
+   "pm": "great"
+  },
+  "2026-05-20": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2026-05-21": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-22": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-23": {
+   "am": "good",
+   "pm": "great"
+  },
+  "2026-05-24": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-05-25": {
+   "am": "awful",
+   "pm": "bad"
+  },
+  "2026-05-26": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-05-27": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-05-28": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-05-29": {
+   "am": "not-great",
+   "pm": "good"
+  },
+  "2026-05-30": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-05-31": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-06-01": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-06-03": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-06-04": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-06-05": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-06-06": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-06-07": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-06-08": {
+   "am": "crisis",
+   "pm": "awful"
+  },
+  "2026-06-09": {
+   "am": "bad",
+   "pm": "bad",
+   "admission": true
+  },
+  "2026-06-10": {
+   "am": "awful",
+   "pm": "awful",
+   "admission": true
+  },
+  "2026-06-11": {
+   "am": "bad",
+   "pm": "bad",
+   "admission": true
+  },
+  "2026-06-12": {
+   "am": "awful",
+   "pm": "awful",
+   "admission": true
+  },
+  "2026-06-13": {
+   "am": "awful",
+   "pm": "awful",
+   "admission": true
+  },
+  "2026-06-14": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-06-15": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-06-16": {
+   "am": "awful",
+   "pm": "awful"
+  },
+  "2026-06-18": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-06-19": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2026-06-20": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-06-22": {
+   "am": "not-great",
+   "pm": "bad"
+  },
+  "2026-06-23": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-06-24": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-06-25": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-06-26": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-06-27": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-06-28": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-06-29": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-06-30": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-07-01": {
+   "am": "bad",
+   "pm": "bad"
+  },
+  "2026-07-02": {
+   "am": "not-great",
+   "pm": "bad"
+  },
+  "2026-07-03": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2026-07-04": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-07-05": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-07-06": {
+   "am": "not-great",
+   "pm": "awful"
+  },
+  "2026-07-07": {
+   "am": "not-great",
+   "pm": "bad"
+  },
+  "2026-07-08": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-07-09": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-07-10": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-07-11": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-07-12": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-07-14": {
+   "am": "okay",
+   "pm": "great"
+  },
+  "2026-07-15": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-07-16": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-07-17": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-07-18": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-07-19": {
+   "am": "good",
+   "pm": "good"
+  },
+  "2026-07-27": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-07-28": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-07-29": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-07-30": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-07-31": {
+   "am": "okay",
+   "pm": "not-great"
+  },
+  "2026-08-01": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-08-02": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-08-03": {
+   "am": "okay",
+   "pm": "bad"
+  },
+  "2026-08-04": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-08-05": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-08-06": {
+   "am": "not-great",
+   "pm": "not-great"
+  },
+  "2026-08-07": {
+   "am": "okay",
+   "pm": "okay"
+  },
+  "2026-08-08": {
+   "am": "good",
+   "pm": "good"
+  }
+ }
+}

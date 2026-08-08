@@ -1,0 +1,36 @@
+---
+import Section from "../Section.astro"
+import Panel from "../Panel.astro"
+import MonthCalendar from "../MonthCalendar.astro"
+import Legend from "../Legend.astro"
+import { MONTH_NAMES } from "@/lib/calendar"
+import { PATTERN_MONTHS } from "@/lib/site"
+import { useTranslations } from "@/i18n"
+
+const t = useTranslations()
+const first = PATTERN_MONTHS[0]
+const last = PATTERN_MONTHS[PATTERN_MONTHS.length - 1]
+const meta = `${MONTH_NAMES[first.month - 1].slice(0, 3)} – ${MONTH_NAMES[last.month - 1].slice(0, 3)} ${last.year}`
+---
+
+<Section id="patterns" index="03" label={t.patterns.section}>
+  <h2
+    class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+  >
+    {t.patterns.heading}
+  </h2>
+  <p class="max-w-[40rem] text-[17px] text-muted-strong">{t.patterns.lead}</p>
+
+  <Panel label={t.patterns.panelLabel} meta={meta} class="mt-8">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-4.5">
+      {PATTERN_MONTHS.map((m) => <MonthCalendar year={m.year} month={m.month} />)}
+    </div>
+    <div class="mt-5 border-t border-border pt-4">
+      <Legend />
+    </div>
+  </Panel>
+
+  <p class="mt-5 font-mono text-[10px] leading-[1.6] tracking-[0.05em] text-muted-strong">
+    {t.patterns.caption}
+  </p>
+</Section>

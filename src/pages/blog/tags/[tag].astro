@@ -1,0 +1,59 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import PostCard from "@/components/blog/PostCard.astro"
+import TagList from "@/components/blog/TagList.astro"
+import { postsByTag, tagsInUse } from "@/lib/posts"
+import { tagBlurb, tagLabel, type TagKey } from "@/lib/tags"
+import { useTranslations } from "@/i18n"
+import type { GetStaticPaths } from "astro"
+
+/**
+ * Only tags that have posts get a route. An empty tag page reads as a broken
+ * site, and linking to one from a post is worse than not linking at all.
+ */
+export const getStaticPaths = (async () => {
+  const tags = await tagsInUse()
+  return Promise.all(
+    tags.map(async (tag) => ({
+      params: { tag },
+      props: { tag, posts: await postsByTag(tag) },
+    }))
+  )
+}) satisfies GetStaticPaths
+
+const { tag, posts } = Astro.props as { tag: TagKey; posts: Awaited<ReturnType<typeof postsByTag>> }
+const t = useTranslations()
+const allTags = await tagsInUse()
+const label = tagLabel(tag)
+---
+
+<BaseLayout
+  title={`${label} — ${t.blog.heading} — Humeur`}
+  description={tagBlurb(tag)}
+>
+  <div class="mx-auto w-full max-w-[62rem] px-4 py-12 sm:px-8 sm:py-16">
+    <a
+      href="/blog/"
+      class="mb-8 inline-block font-mono text-[10px] tracking-[0.15em] text-muted-strong uppercase no-underline hover:text-foreground"
+    >
+      ← {t.blog.backToBlog}
+    </a>
+
+    <header class="border-b border-border-strong pb-8">
+      <p class="mb-4 font-mono text-[11px] tracking-[0.14em] text-muted-strong uppercase">
+        {t.blog.filedUnder}
+      </p>
+      <h1
+        class="font-display text-[clamp(2rem,6vw,3rem)] leading-[1.06] font-medium tracking-[-0.028em] text-balance"
+      >
+        {label}
+      </h1>
+      <p class="mt-4 max-w-[38rem] text-[17px] text-muted-strong">{tagBlurb(tag)}</p>
+      <TagList tags={allTags} current={tag} class="mt-6" />
+    </header>
+
+    <div>
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </div>
+</BaseLayout>

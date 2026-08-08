@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import Hero from "@/components/sections/Hero.astro"
+import HowItWorks from "@/components/sections/HowItWorks.astro"
+import TheSplit from "@/components/sections/TheSplit.astro"
+import Patterns from "@/components/sections/Patterns.astro"
+import Export from "@/components/sections/Export.astro"
+import Privacy from "@/components/sections/Privacy.astro"
+import Providers from "@/components/sections/Providers.astro"
+import Languages from "@/components/sections/Languages.astro"
+import Pricing from "@/components/sections/Pricing.astro"
+import About from "@/components/sections/About.astro"
+import Crisis from "@/components/sections/Crisis.astro"
+import FinalCta from "@/components/sections/FinalCta.astro"
+
+/**
+ * Section order matches the approved mockup.
+ *
+ * Export states that it's free before pricing is mentioned at all, and the
+ * crisis link is in the header-adjacent footer nav as well as its own
+ * section, so neither depends on a reader getting to the bottom of the page.
+ *
+ * If this ever gets reordered, the two constraints are: nothing may sit
+ * between a reader and the crisis resources, and export must never be
+ * introduced as something a plan buys you.
+ */
+---
+
+<BaseLayout>
+  <Hero />
+  <HowItWorks />
+  <TheSplit />
+  <Patterns />
+  <Export />
+  <Privacy />
+  <Providers />
+  <Languages />
+  <Pricing />
+  <About />
+  <Crisis />
+  <FinalCta />
+</BaseLayout>

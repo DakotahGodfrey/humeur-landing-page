@@ -1,0 +1,38 @@
+---
+import { tagLabel, type TagKey } from "@/lib/tags"
+
+interface Props {
+  tags: readonly TagKey[]
+  /** Render as links to the tag pages, or as plain labels. */
+  linked?: boolean
+  current?: TagKey
+  class?: string
+}
+
+const { tags, linked = true, current, class: className = "" } = Astro.props
+
+const base =
+  "rounded-md border px-2 py-[5px] font-mono text-[10px] tracking-[0.08em] uppercase no-underline"
+---
+
+<ul class:list={["flex flex-wrap gap-1.5", className]}>
+  {
+    tags.map((tag) => {
+      const active = tag === current
+      const styles = active
+        ? "border-foreground/40 bg-accent-surface font-medium text-foreground"
+        : "border-border-strong text-muted-strong"
+      return (
+        <li>
+          {linked ? (
+            <a href={`/blog/tags/${tag}/`} class:list={[base, styles, "hover:text-foreground"]}>
+              {tagLabel(tag)}
+            </a>
+          ) : (
+            <span class:list={[base, styles]}>{tagLabel(tag)}</span>
+          )}
+        </li>
+      )
+    })
+  }
+</ul>

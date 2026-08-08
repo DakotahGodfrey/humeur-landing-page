@@ -1,0 +1,30 @@
+---
+/**
+ * The bordered module this direction is built out of. Optional header strip
+ * with a label on the left and a reading on the right, like an instrument.
+ */
+
+interface Props {
+  label?: string
+  meta?: string
+  /** Drop the body padding when the slot brings its own (lists, tables). */
+  flush?: boolean
+  class?: string
+}
+
+const { label, meta, flush = false, class: className = "" } = Astro.props
+---
+
+<div class:list={["rounded-[10px] border border-border-strong bg-surface", className]}>
+  {
+    (label || meta) && (
+      <div class="flex items-center justify-between gap-4 border-b border-border px-3.5 py-2.5 font-mono text-[10px] tracking-[0.13em] text-muted-strong uppercase">
+        <span>{label}</span>
+        {meta && <span>{meta}</span>}
+      </div>
+    )
+  }
+  <div class:list={[flush ? "" : "p-3.5 sm:p-4.5"]}>
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,43 @@
+---
+import type { DayEntry } from "@/lib/history"
+import { isSplit } from "@/lib/history"
+
+/**
+ * One calendar cell, following components/CalendarViews/MoodCell.tsx.
+ *
+ *   logged whole day -> mood fill, solid border
+ *   logged split     -> 135deg gradient, AM top-left, PM bottom-right
+ *   in month, no entry -> dashed border on a near-transparent fill
+ *   padding (adjacent month) -> accent-surface with a lowercase x
+ *
+ * Never apply opacity to the fill. The scale is monotonic in lightness and
+ * fading a swatch moves it up the ramp into a different meaning.
+ */
+
+interface Props {
+  entry: DayEntry | null
+  /** Padding cell for a neighbouring month. */
+  pad?: boolean
+  class?: string
+}
+
+const { entry, pad = false, class: className = "" } = Astro.props
+
+const split = isSplit(entry)
+const state = pad ? "pad" : entry?.am ? (split ? "split" : "solid") : "empty"
+
+const style = entry?.am
+  ? `--cell-am:var(${entry.am.cssVar});--cell-pm:var(${(entry.pm ?? entry.am).cssVar})`
+  : undefined
+---
+
+<span class:list={["mood-cell", className]} data-state={state} style={style}>
+  {pad && "x"}
+  {
+    entry?.admission && (
+      <span class="admission-glyph" aria-hidden="true">
+        <i />
+      </span>
+    )
+  }
+</span>

@@ -1,0 +1,25 @@
+---
+import Section from "../Section.astro"
+import { useTranslations } from "@/i18n"
+
+/**
+ * The only place first person appears. Copy is a placeholder for now — see
+ * src/i18n/en-CA.ts.
+ */
+
+const t = useTranslations()
+---
+
+<Section id="about" index="09" label={t.about.section}>
+  <h2
+    class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+  >
+    {t.about.heading}
+  </h2>
+  {
+    t.about.paragraphs.map((p, i) => (
+      <p class:list={["max-w-[40rem] text-[17px] text-muted-strong", i > 0 && "mt-3.5"]}>{p}</p>
+    ))
+  }
+  <p class="mt-6 font-display text-muted-strong italic">{t.about.signature}</p>
+</Section>

@@ -1,0 +1,26 @@
+---
+import Section from "../Section.astro"
+import DayView from "../DayView.astro"
+import { useTranslations } from "@/i18n"
+
+/**
+ * One sentence, then the screen. The split is easier to see than to read
+ * about, and this audience does not need a paragraph explaining that a bad
+ * evening is different from a bad day.
+ */
+
+const t = useTranslations()
+---
+
+<Section id="split" index="02" label={t.split.section}>
+  <h2
+    class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+  >
+    {t.split.heading}
+  </h2>
+  <p class="max-w-[40rem] text-[17px] text-muted-strong">{t.split.lead}</p>
+
+  <div class="mt-8">
+    <DayView />
+  </div>
+</Section>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- A split day: Okay in the morning, Bad in the evening. The same 135°
+       construction the calendar uses, and the same two theme-invariant
+       swatches, so the mark means the thing the product is about. -->
+  <defs>
+    <linearGradient id="split" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="50%" stop-color="#94BF6E" />
+      <stop offset="50%" stop-color="#786CB2" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7.7" fill="url(#split)" />
+  <rect x="0.5" y="0.5" width="31" height="31" rx="7.2" fill="none" stroke="#2D251F" stroke-opacity="0.22" />
+</svg>

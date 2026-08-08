@@ -1,0 +1,62 @@
+---
+import Section from "../Section.astro"
+import Panel from "../Panel.astro"
+import Button from "../Button.astro"
+import { links } from "@/lib/site"
+import { useTranslations } from "@/i18n"
+
+/**
+ * Descriptive tier names, not Free/Pro. "On this device" and "Synced" say
+ * what the difference actually is; Free/Pro implies the free one is the
+ * lesser product, and here it isn't — it has every feature.
+ */
+
+const t = useTranslations()
+const tiers = [
+  { ...t.pricing.free, href: links.app, variant: "ghost" as const },
+  { ...t.pricing.synced, href: links.app, variant: "primary" as const },
+]
+---
+
+<Section id="pricing" index="08" label={t.pricing.section}>
+  <h2
+    class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+  >
+    {t.pricing.heading}
+  </h2>
+
+  <div class="mt-7 grid gap-4 min-[44rem]:grid-cols-2">
+    {
+      tiers.map((tier) => (
+        <Panel label={tier.name} meta={tier.meta} flush>
+          <div class="p-3.5 sm:p-4.5">
+            <p class="mb-1.5 font-mono text-[28px] leading-none tracking-[-0.03em]">
+              {tier.price}
+              <small class="font-mono text-xs tracking-[0.04em] text-muted-strong">
+                {tier.priceNote}
+              </small>
+            </p>
+            <ul class="mt-4 grid gap-1.5 text-sm text-muted-strong">
+              {tier.points.map((point) => (
+                <li class="flex gap-2 before:flex-none before:text-foreground before:content-['·']">
+                  {point}
+                </li>
+              ))}
+            </ul>
+            <Button href={tier.href} variant={tier.variant} size="sm" class="mt-5">
+              {tier.cta}
+            </Button>
+          </div>
+        </Panel>
+      ))
+    }
+  </div>
+
+  <p class="mt-5 text-sm text-muted-strong">{t.pricing.note}</p>
+
+  <p
+    class="mt-7 max-w-[36rem] border-l-[2.5px] border-accent pl-4 font-display text-[clamp(1.0625rem,2.6vw,1.375rem)] leading-[1.45]"
+  >
+    {t.pricing.pull}
+  </p>
+</Section>

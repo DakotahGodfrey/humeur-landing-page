@@ -1,0 +1,29 @@
+---
+import Section from "../Section.astro"
+import { useTranslations } from "@/i18n"
+
+const t = useTranslations()
+---
+
+<Section id="how" index="01" label={t.how.section}>
+  <h2
+    class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+  >
+    {t.how.heading}
+  </h2>
+  <p class="max-w-[40rem] text-[17px] text-muted-strong">{t.how.lead}</p>
+
+  <div class="mt-9 border-t border-border-strong">
+    {
+      t.how.specs.map((spec) => (
+        <div class="grid gap-2 border-b border-border py-5 md:grid-cols-[8.5rem_12rem_1fr] md:items-baseline md:gap-7">
+          <p class="font-mono text-[10px] tracking-[0.13em] text-muted-strong uppercase">
+            {spec.key}
+          </p>
+          <p class="font-semibold">{spec.title}</p>
+          <p class="leading-[1.6] text-muted-strong">{spec.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</Section>

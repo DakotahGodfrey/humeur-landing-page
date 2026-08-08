@@ -1,0 +1,99 @@
+---
+import Button from "../Button.astro"
+import Panel from "../Panel.astro"
+import MonthCalendar from "../MonthCalendar.astro"
+import Legend from "../Legend.astro"
+import { rangeStats, formatShort } from "@/lib/calendar"
+import { DEMO_RANGE, links } from "@/lib/site"
+import { useTranslations } from "@/i18n"
+
+const t = useTranslations()
+const { from, to, months } = DEMO_RANGE
+const stats = rangeStats(from, to)
+
+// Every figure in the readout is computed from the same committed history the
+// grids are drawn from, so they can't disagree with each other.
+---
+
+<section class="py-11 lg:py-16">
+  <div
+    class="mx-auto grid w-full max-w-[78rem] gap-9 px-4 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12"
+  >
+    <div>
+      <p class="mb-4 font-mono text-[11px] tracking-[0.14em] text-muted-strong uppercase">
+        {t.hero.eyebrow}
+      </p>
+      <h1
+        class="mb-5 font-display text-[clamp(2.125rem,8.2vw,3.75rem)] leading-[1.04] font-medium tracking-[-0.03em] text-balance"
+      >
+        {t.hero.headline}
+      </h1>
+      <p class="mb-7 max-w-[31rem] text-[17px] leading-[1.6] text-muted-strong">
+        {t.hero.sub}
+      </p>
+      <div class="mb-3.5 flex flex-wrap gap-2.5">
+        <Button href={links.app} size="lg">{t.hero.primaryCta}</Button>
+        <Button href="/#how" variant="ghost" size="lg">{t.hero.secondaryCta}</Button>
+      </div>
+      <p class="max-w-[26rem] text-[13px] text-muted-strong">{t.hero.note}</p>
+    </div>
+
+    <Panel
+      label={`${formatShort(from)} – ${formatShort(to)}`}
+      meta={t.hero.panelLabel}
+      flush
+    >
+      <div class="p-3.5 sm:p-4.5">
+        {/* One month on a small screen, three when there's room. Three tiny
+            grids at 360px would be a colour field nobody can read. */}
+        <div class="grid grid-cols-1 gap-5 min-[34rem]:grid-cols-3 min-[34rem]:gap-3.5">
+          <div class="hidden min-[34rem]:block">
+            <MonthCalendar year={months[0].year} month={months[0].month} compact />
+          </div>
+          <div>
+            <MonthCalendar year={months[1].year} month={months[1].month} compact />
+          </div>
+          <div class="hidden min-[34rem]:block">
+            <MonthCalendar year={months[2].year} month={months[2].month} compact />
+          </div>
+        </div>
+        <div class="mt-4.5 border-t border-border pt-3.5">
+          <Legend />
+        </div>
+      </div>
+
+      <dl class="grid grid-cols-2 gap-px border-t border-border bg-border min-[34rem]:grid-cols-4">
+        <div class="bg-surface px-3.5 py-3">
+          <dd class="font-mono text-lg leading-[1.15] tracking-[-0.02em]">
+            {stats.percentLogged}%
+          </dd>
+          <dt class="mt-1 font-mono text-[9px] tracking-[0.12em] text-muted-strong uppercase">
+            {t.hero.readout.coverage}
+          </dt>
+        </div>
+        <div class="bg-surface px-3.5 py-3">
+          <dd class="font-mono text-lg leading-[1.15] tracking-[-0.02em]">
+            {stats.logged}<span class="text-muted-strong">/{stats.total}</span>
+          </dd>
+          <dt class="mt-1 font-mono text-[9px] tracking-[0.12em] text-muted-strong uppercase">
+            {t.hero.readout.logged}
+          </dt>
+        </div>
+        <div class="bg-surface px-3.5 py-3">
+          <dd class="font-mono text-lg leading-[1.15] tracking-[-0.02em]">{stats.average}</dd>
+          <dt class="mt-1 font-mono text-[9px] tracking-[0.12em] text-muted-strong uppercase">
+            {t.hero.readout.average}
+          </dt>
+        </div>
+        <div class="bg-surface px-3.5 py-3">
+          <dd class="font-mono text-[15px] leading-[1.15] tracking-[-0.02em]">
+            {stats.lowest}&nbsp;– {stats.highest}
+          </dd>
+          <dt class="mt-1 font-mono text-[9px] tracking-[0.12em] text-muted-strong uppercase">
+            {t.hero.readout.range}
+          </dt>
+        </div>
+      </dl>
+    </Panel>
+  </div>
+</section>

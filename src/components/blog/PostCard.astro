@@ -1,0 +1,40 @@
+---
+import TagList from "./TagList.astro"
+import { formatPostDate, isoDate, type Post } from "@/lib/posts"
+import { useTranslations } from "@/i18n"
+import type { TagKey } from "@/lib/tags"
+
+interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+const t = useTranslations()
+const { title, description, pubDate, tags, draft } = post.data
+---
+
+<article class="grid gap-3 border-b border-border py-7 md:grid-cols-[9rem_1fr] md:gap-8">
+  <div class="flex flex-col gap-2">
+    <time
+      datetime={isoDate(pubDate)}
+      class="font-mono text-[11px] tracking-[0.06em] text-muted-strong"
+    >
+      {formatPostDate(pubDate)}
+    </time>
+    {
+      draft && (
+        <span class="w-fit rounded-md border border-danger/45 px-2 py-[3px] font-mono text-[10px] tracking-[0.08em] text-danger uppercase">
+          {t.blog.draftBadge}
+        </span>
+      )
+    }
+  </div>
+
+  <div>
+    <h2 class="font-display text-xl leading-[1.25] font-semibold tracking-[-0.015em] text-balance">
+      <a href={`/blog/${post.id}/`} class="no-underline hover:underline">{title}</a>
+    </h2>
+    <p class="mt-2 max-w-[38rem] text-muted-strong">{description}</p>
+    <TagList tags={tags as readonly TagKey[]} class="mt-3.5" />
+  </div>
+</article>
