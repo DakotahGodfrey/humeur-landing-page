@@ -177,12 +177,25 @@ export default {
     // no "accepting referrals" — the search returns places, and inventing a
     // field the data source doesn't have is exactly the failure mode above.
     results: [
-      { distance: "1.2 km", name: "Riverside Psychiatry", type: "Psychiatrist" },
+      {
+        distance: "1.2 km",
+        name: "Riverside Psychiatry",
+        type: "Psychiatrist",
+      },
       { distance: "2.8 km", name: "Dr. A. Mercier", type: "Psychiatrist" },
-      { distance: "4.6 km", name: "Northbank Mental Health Clinic", type: "Clinic · Psychiatry, psychology" },
-      { distance: "7.1 km", name: "St. Elias Hospital — Outpatient", type: "Hospital" },
+      {
+        distance: "4.6 km",
+        name: "Northbank Mental Health Clinic",
+        type: "Clinic · Psychiatry, psychology",
+      },
+      {
+        distance: "7.1 km",
+        name: "St. Elias Hospital — Outpatient",
+        type: "Hospital",
+      },
     ],
-    close: "Tracking, a pattern, someone to show it to, and a page to hand them. That's the whole loop.",
+    close:
+      "Tracking, a pattern, someone to show it to, and a page to hand them. That's the whole loop.",
   },
 
   languages: {
@@ -233,12 +246,6 @@ export default {
   about: {
     section: "About",
     heading: "Why I built this",
-    // Placeholder. Dakotah to write — the only place first person appears.
-    paragraphs: [
-      "[Placeholder — Dakotah to write. Two short paragraphs: why mood charting, and what one-person development means here.]",
-      "[Placeholder — the paragraph that answers “solo project” with decisions rather than reassurance.]",
-    ],
-    signature: "— Dakotah",
   },
 
   crisis: {
@@ -248,8 +255,14 @@ export default {
     body2:
       "Humeur is not a crisis service and nobody monitors your entries. When you log a Crisis-level day, it offers the resources rather than interrupting you.",
     regions: [
-      "United States", "Canada", "United Kingdom", "Ireland",
-      "Germany", "Australia", "New Zealand", "Worldwide",
+      "United States",
+      "Canada",
+      "United Kingdom",
+      "Ireland",
+      "Germany",
+      "Australia",
+      "New Zealand",
+      "Worldwide",
     ],
     cta: "Open crisis resources",
   },
