@@ -27,3 +27,4 @@ pnpm-debug.log*
 # pnpm falls back to a project-local store when the global one is on a
 # different filesystem (containers, some CI images, network mounts).
 .pnpm-store/
+.vercel/
