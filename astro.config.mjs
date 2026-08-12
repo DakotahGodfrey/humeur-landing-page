@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
-
+import vercel from "@astrojs/vercel"
 /**
  * Humeur landing page.
  *
@@ -29,15 +29,6 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  /**
-   * Self-hosted via Astro's fonts API rather than a <link> to Google.
-   *
-   * This is a product whose pitch is that it can't read your entries. A
-   * landing page that makes every visitor's browser announce itself to a
-   * third party before the first paint undercuts that, and the people
-   * arriving here are the ones most likely to care. Self-hosting also drops
-   * a DNS lookup and a connection from the critical path.
-   */
   fonts: [
     {
       provider: fontProviders.google(),
@@ -73,6 +64,11 @@ export default defineConfig({
     // more than once.
     inlineStylesheets: "auto",
   },
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   vite: {
     plugins: [tailwindcss()],
   },

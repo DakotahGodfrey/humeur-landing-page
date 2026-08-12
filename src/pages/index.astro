@@ -11,6 +11,7 @@ import Languages from "@/components/sections/Languages.astro"
 import Pricing from "@/components/sections/Pricing.astro"
 import Crisis from "@/components/sections/Crisis.astro"
 import FinalCta from "@/components/sections/FinalCta.astro"
+import { Analytics } from "@vercel/analytics/next"
 
 /**
  * Section order matches the approved mockup.
@@ -37,4 +38,5 @@ import FinalCta from "@/components/sections/FinalCta.astro"
   <Pricing />
   <Crisis />
   <FinalCta />
+  <Analytics />
 </BaseLayout>
