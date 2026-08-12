@@ -220,7 +220,7 @@ export default {
       priceNote: " · forever",
       points: [
         "Every feature. Every view.",
-        "Export, printed and as data.",
+        "Export, data in a consumable format.",
         "Crisis resources.",
         "No account, no time limit, no catch.",
       ],
@@ -229,13 +229,11 @@ export default {
     synced: {
       name: "Synced",
       meta: "Across devices",
-      price: "$12",
-      priceNote: " /year · or $1/month",
+      price: "$20",
+      priceNote: " /year · or $2/month",
       points: [
-        "Everything on this device, plus:",
-        "Your history across your devices.",
-        "Backed up, and there if your phone isn't.",
-        "Paying more is an option — it covers someone who can't.",
+        "Your history, across your devices.",
+        "Backed up, and there if your notebook isn't.",
       ],
       cta: "Start tracking",
     },
