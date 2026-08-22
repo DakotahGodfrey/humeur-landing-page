@@ -17,7 +17,7 @@ const { id, index, label, class: className = "" } = Astro.props
 <section id={id} class:list={["border-t border-border-strong py-13 sm:py-18", className]}>
   <div class="mx-auto w-full max-w-[78rem] px-4 sm:px-8">
     <p
-      class="mb-6 flex items-baseline gap-3.5 font-mono text-[10px] tracking-[0.15em] text-muted-strong uppercase after:h-px after:flex-1 after:bg-border-strong after:content-['']"
+      class="mb-6 flex items-baseline gap-3.5 font-mono text-[10px] tracking-[0.15em] text-muted-foreground uppercase after:h-px after:flex-1 after:bg-border-strong after:content-['']"
     >
       <b class="font-medium text-foreground">§ {index}</b>
       {label}

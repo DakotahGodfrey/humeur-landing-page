@@ -28,3 +28,6 @@ pnpm-debug.log*
 # different filesystem (containers, some CI images, network mounts).
 .pnpm-store/
 .vercel/
+
+# Notion block images, downloaded at build (see src/lib/notion/images.ts)
+public/notion/

@@ -13,9 +13,19 @@ const t = useTranslations()
       href={links.home}
       class="flex items-center gap-2.5 font-display text-lg font-semibold tracking-[-0.01em] no-underline"
     >
+      {/* The brand mark: a split day, Great in the morning and Bad in the
+          evening, drawn with the same 135° construction the calendar uses.
+
+          Great + Bad, not Okay + Bad — this is what app/logo-1024.png is, and
+          the header, the favicon and the app icon are meant to be one mark.
+          The radius is ~15% to match that file too; it was 24%, which read as
+          a noticeably rounder object beside the real icon.
+
+          No inset hairline. The logo has no border, and on the light sheet
+          the yellow half was the only reason one seemed necessary. */}
       <span
-        class="size-4 flex-none rounded-[24%] shadow-[inset_0_0_0_1px_hsl(var(--foreground)/0.25)]"
-        style="background:linear-gradient(135deg,hsl(var(--mood-okay)) 50%,hsl(var(--mood-bad)) 50%)"
+        class="size-4 flex-none rounded-[15%]"
+        style="background:linear-gradient(135deg,hsl(var(--mood-great)) 50%,hsl(var(--mood-bad)) 50%)"
         aria-hidden="true"></span>
       Humeur
     </a>
@@ -26,7 +36,7 @@ const t = useTranslations()
     >
       {
         t.nav.items.map((item) => (
-          <a href={item.href} class="text-muted-strong no-underline hover:text-foreground">
+          <a href={item.href} class="text-muted-foreground no-underline hover:text-foreground">
             {item.label}
           </a>
         ))

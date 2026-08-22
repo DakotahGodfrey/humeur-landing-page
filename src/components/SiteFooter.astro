@@ -16,7 +16,7 @@ const t = useTranslations()
       >
         {
           t.footer.links.map((link) => (
-            <a href={link.href} class="text-muted-strong no-underline hover:text-foreground hover:underline">
+            <a href={link.href} class="text-muted-foreground no-underline hover:text-foreground hover:underline">
               {link.label}
             </a>
           ))
@@ -27,7 +27,7 @@ const t = useTranslations()
     {/* The disclaimer is never collapsed, never a tooltip, never below a fold
         that a reader has to look for. It's the last thing on the page and it
         is meant to be read. */}
-    <p class="mt-5 max-w-[48rem] text-xs leading-[1.65] text-muted-strong">
+    <p class="mt-5 max-w-[48rem] text-xs leading-[1.65] text-muted-foreground">
       {t.footer.fine}
     </p>
   </div>

@@ -17,30 +17,73 @@
 :root {
   color-scheme: light dark;
 
-  /* ── Light ─────────────────────────────────────────────────────────── */
-  --background: 40 75% 92%;
-  --surface: 40 100% 98%;
-  --border: 38 52% 83%;
-  --border-strong: 38 48% 74%;
-  --foreground: 26 18% 15%;
+  /* ── Light — "Pearled Ivory" ───────────────────────────────────────────
+     Taken from the app's globals.css, value for value. The reasoning lives
+     there and is not duplicated here; the short version is that the palette
+     is anchored on PANTONE 11-0907 TCX Pearled Ivory (#F0DFCC), which is
+     --band exactly, and everything else is derived from it at hue 30–32 so
+     paper, hairlines and ink are one family. Only the accent leaves it.
 
-  /* The design system's --muted-foreground is 40 20% 48%, which measures
-     3.28:1 on --background and 2.93:1 on --accent-surface. That is below
-     WCAG AA for anything under 24px, and most secondary copy here is 14–15px.
-     Both are kept: --muted-foreground for large text, --muted-strong (5.06:1
-     / 4.53:1) for everything else. Flagged for the app's token file too. */
-  --muted-foreground: 40 20% 48%;
-  --muted-strong: 40 20% 37%;
+     If a value here disagrees with the app, the app wins — this is the copy.
 
-  --accent-surface: 40 65% 86%;
-  --accent: 39 87% 62%;
-  --on-accent: 26 18% 15%;
-  --danger: 353 60% 43%;
+     The previous palette was a separate warm-gold direction at hue 38–40.
+     Nothing about it was wrong on its own; it just wasn't the product's. */
+  --background: 32 55% 90%; /* #F4E6D7 — the sheet */
+  --surface: 32 60% 98%; /* #FDFAF7 — cards, panels, screenshot frames */
+  --border: 30 30% 70%; /* #C9B39C */
+  --border-strong: 30 26% 54%; /* #A88A6B */
+  --foreground: 28 20% 14%; /* #2B231D — 12.60:1 on --background */
 
-  /* Reserved for crisis-helpline surfaces. Nothing else may use it. */
-  --crisis: 0 85% 36%;
-  --crisis-surface: 0 60% 95%;
-  --crisis-border: 0 55% 82%;
+  /* One muted token, not two.
+     The old split existed because the app's --muted-foreground was 40 20% 48%
+     — 3.28:1 on the sheet, under AA for the 14–15px secondary copy that is
+     most of this page — so the site carried a darker second token beside it
+     and used that almost everywhere. The app has since fixed the token at
+     source: 30 24% 33% measures 5.85:1 on --background, 6.89:1 on --surface,
+     5.50:1 on --band. The workaround has nothing left to work around, so it
+     is gone and its 61 call sites now read --muted-foreground. */
+  --muted-foreground: 30 24% 33%; /* #685440 */
+
+  /* Same value as --surface, from the app: hovering something on the sheet
+     lifts it to the colour a panel already is, rather than inventing a wash
+     of its own. Paper-coloured fills read --band instead. */
+  --accent-surface: 32 60% 98%; /* #FDFAF7 */
+  /* The step off --surface, for hovers on things that already sit on it. */
+  --surface-hover: 32 50% 91%; /* #F4E9DD */
+
+  /* ── Accent — plum, not gold ──────────────────────────────────────────
+     The single largest visible change. The old accent was #F2B84B, a gold
+     that could only ever be a border or a fill: about 1.7:1 on --surface,
+     nowhere near type. Plum is the same hue family as dark mode's lavender
+     taken down to ink weight, so the accent is now ONE colour with a light
+     and a dark form rather than two unrelated ones. */
+  --accent: 288 28% 44%; /* #835190 — 5.70:1 on --surface, 4.84:1 on the sheet */
+  --accent-text: 288 36% 31%; /* #60336C — 9.23:1 on --surface */
+
+  /* What goes ON --accent. The app has no such token because nothing there
+     fills with the accent and puts type on it; this site's primary button
+     does. It flipped with the accent: dark ink was correct on gold and would
+     be 1.9:1 on plum, so it is now the near-white plate. 5.70:1. */
+  --on-accent: 32 60% 98%; /* #FDFAF7 */
+
+  /* ── Band ──────────────────────────────────────────────────────────────
+     The Pearled Ivory swatch itself, and the app's tint for full-bleed
+     strips — toolbar, legend, crisis. Here it paints the header rails on
+     panels and screenshot frames, which are the same kind of object. A
+     half-step off --background on purpose: --surface is a raised plate,
+     this is a tint of the paper. */
+  --band: 32 55% 87%; /* #F0DFCC — PANTONE 11-0907 TCX, exactly */
+
+  --danger: 353 60% 43%; /* #AF2C3B — 4.97:1 on --band, the thinnest in the set */
+
+  /* Reserved for crisis-helpline surfaces. Nothing else may use it.
+     --crisis matches the app; the two -surface/-border tokens are this
+     site's own, for the crisis card, and were re-measured against the new
+     palette rather than assumed: --crisis is 6.53:1 on --crisis-surface and
+     --foreground 13.34:1. */
+  --crisis: 0 85% 36%; /* #AA0E0E */
+  --crisis-surface: 0 60% 95%; /* #FAEBEB */
+  --crisis-border: 0 55% 82%; /* #EAB8B8 */
 
   --radius: 1rem;
 
@@ -60,59 +103,69 @@
   --mood-okay: 92 39% 59%;
   --mood-good: 355 84% 81%;
   --mood-great: 50 90% 73%;
-
-  /* Admission glyph. Also theme-invariant, because the swatches underneath
-     it are: a pale plate carries the mark on the dark end of the scale, the
-     mark carries it on the pale end. A single-tone glyph measured 1.20:1 on
-     --mood-awful, which is not "hard to read", it is invisible. */
-  --admission-plate: 40 100% 98%;
-  --admission-mark: 353 60% 43%;
 }
 
 /* ── Dark ──────────────────────────────────────────────────────────────────
-   The design system specifies --background and --surface for dark, plus
-   "accent flips gold to lavender". The rest is derived here and contrast
-   checked: foreground 15.09:1, muted 8.15:1, accent 7.61:1 on --background.
+   Also taken from the app, value for value. Deliberately cooler than light
+   mode — navy, not a dark version of the warm linen — to echo sunrise
+   (warm/day) against moonrise (cool/night).
 
-   --crisis also had to be derived. #AA0E0E on #181B27 is roughly 1:1 and
-   simply unreadable, so crisis surfaces get a light mark on a dark tint
-   (5.13:1). It stays reserved for helpline surfaces in both themes.        */
+   The accent no longer flips hue family here: light plum and dark lavender
+   are the same colour at opposite ends of the range, the way --danger
+   already was. --accent-text is the same value as --accent in this theme
+   (the lavender is already 6.87:1 on --background, so accent-as-type needs
+   no darker twin); it is declared anyway so the token resolves in both.
+
+   The two site-only tokens are --on-accent and the crisis card's
+   -surface/-border pair. --on-accent stays --background: on lavender that
+   measures 6.87:1, and it is the one token that has to point the opposite
+   way in each theme.
+
+   THE TWO BLOCKS BELOW ARE THE SAME LIST TWICE, and have to stay in step —
+   one covers "the OS says dark and nothing overrode it", the other "the
+   toggle says dark". CSS gives no way to write a token set once and apply it
+   to both a media query and a selector, so this is duplication by necessity.
+   It is the copy that gets forgotten; change one, change the other.       */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --background: 228 24% 12%;
-    --surface: 227 18% 16%;
-    --border: 228 14% 26%;
-    --border-strong: 228 13% 38%;
-    --foreground: 40 28% 93%;
-    --muted-foreground: 40 14% 68%;
-    --muted-strong: 40 14% 68%;
-    --accent-surface: 230 16% 23%;
-    --accent: 258 72% 78%;
-    --on-accent: 228 24% 12%;
-    --danger: 353 70% 68%;
-    --crisis: 0 80% 68%;
-    --crisis-surface: 0 35% 16%;
-    --crisis-border: 0 40% 34%;
+    --background: 228 24% 12%; /* #171A26 */
+    --surface: 227 18% 16%; /* #212530 */
+    --border: 227 16% 22%; /* #2E3240 */
+    --border-strong: 225 14% 27%; /* #3B404F */
+    --foreground: 230 20% 94%; /* #EDEEF3 — 14.95:1 on --background */
+    --muted-foreground: 230 11% 61%; /* #9194A6 — 5.77:1 on --background */
+    --accent-surface: 227 18% 16%; /* #212530 — same as --surface, as in light */
+    --surface-hover: 227 17% 21%; /* #2C303F */
+    --accent: 257 42% 72%; /* #AB9AD6 — 6.87:1 on --background */
+    --accent-text: 257 42% 72%; /* #AB9AD6 — same as --accent here */
+    --on-accent: 228 24% 12%; /* #171A26 — 6.87:1 on --accent */
+    --band: 226 19% 14%; /* #1D202A */
+    --danger: 353 60% 70%; /* #E0858F */
+    --crisis: 0 90% 78%; /* #F99494 — 7.26:1 on --crisis-surface */
+    --crisis-surface: 0 35% 16%; /* #371B1B */
+    --crisis-border: 0 40% 34%; /* #793434 */
   }
 }
 
 :root[data-theme="dark"] {
-  --background: 228 24% 12%;
-  --surface: 227 18% 16%;
-  --border: 228 14% 26%;
-  --border-strong: 228 13% 38%;
-  --foreground: 40 28% 93%;
-  --muted-foreground: 40 14% 68%;
-  --muted-strong: 40 14% 68%;
-  --accent-surface: 230 16% 23%;
-  --accent: 258 72% 78%;
-  --on-accent: 228 24% 12%;
-  --danger: 353 70% 68%;
-  --crisis: 0 80% 68%;
-  --crisis-surface: 0 35% 16%;
-  --crisis-border: 0 40% 34%;
+  --background: 228 24% 12%; /* #171A26 */
+  --surface: 227 18% 16%; /* #212530 */
+  --border: 227 16% 22%; /* #2E3240 */
+  --border-strong: 225 14% 27%; /* #3B404F */
+  --foreground: 230 20% 94%; /* #EDEEF3 — 14.95:1 on --background */
+  --muted-foreground: 230 11% 61%; /* #9194A6 — 5.77:1 on --background */
+  --accent-surface: 227 18% 16%; /* #212530 — same as --surface, as in light */
+  --surface-hover: 227 17% 21%; /* #2C303F */
+  --accent: 257 42% 72%; /* #AB9AD6 — 6.87:1 on --background */
+  --accent-text: 257 42% 72%; /* #AB9AD6 — same as --accent here */
+  --on-accent: 228 24% 12%; /* #171A26 — 6.87:1 on --accent */
+  --band: 226 19% 14%; /* #1D202A */
+  --danger: 353 60% 70%; /* #E0858F */
+  --crisis: 0 90% 78%; /* #F99494 — 7.26:1 on --crisis-surface */
+  --crisis-surface: 0 35% 16%; /* #371B1B */
+  --crisis-border: 0 40% 34%; /* #793434 */
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -126,10 +179,12 @@
   --color-border-strong: hsl(var(--border-strong));
   --color-foreground: hsl(var(--foreground));
   --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-muted-strong: hsl(var(--muted-strong));
   --color-accent-surface: hsl(var(--accent-surface));
+  --color-surface-hover: hsl(var(--surface-hover));
   --color-accent: hsl(var(--accent));
+  --color-accent-text: hsl(var(--accent-text));
   --color-on-accent: hsl(var(--on-accent));
+  --color-band: hsl(var(--band));
   --color-danger: hsl(var(--danger));
   --color-crisis: hsl(var(--crisis));
   --color-crisis-surface: hsl(var(--crisis-surface));
@@ -143,9 +198,6 @@
   --color-mood-good: hsl(var(--mood-good));
   --color-mood-great: hsl(var(--mood-great));
 
-  --color-admission-plate: hsl(var(--admission-plate));
-  --color-admission-mark: hsl(var(--admission-mark));
-
   /* Paper is paper. The printed summary does not invert with the theme,
      because the thing it depicts comes out of a printer. */
   --color-paper: #fffcf5;
@@ -158,8 +210,6 @@
   --font-display: var(--font-humeur-display);
   --font-sans: var(--font-humeur-ui);
   --font-mono: var(--font-humeur-mono);
-
-  --radius-squircle: 24%;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -213,89 +263,6 @@
 }
 
 @layer components {
-  /* ── Mood cell ──────────────────────────────────────────────────────────
-     Rendering rules taken from components/CalendarViews/MoodCell.tsx:
-       logged   -> mood fill, 1px solid --border
-       unlogged -> dashed --border-strong/0.75 on --border/0.05
-       padding  -> --accent-surface with a lowercase x, no number
-       split    -> linear-gradient(135deg, am 50%, pm 50%), AM top-left
-     The day number sits below the cell in the grid views and is overlaid
-     only in the day view.                                                  */
-  .mood-cell {
-    display: grid;
-    place-items: center;
-    position: relative;
-    aspect-ratio: 1 / 1;
-    border-radius: 24%;
-    background: hsl(var(--border) / 0.05);
-    border: 1px dashed hsl(var(--border-strong) / 0.75);
-  }
-
-  .mood-cell[data-state="solid"] {
-    background: hsl(var(--cell-am));
-    border: 1px solid hsl(var(--border));
-    border-style: solid;
-  }
-
-  .mood-cell[data-state="split"] {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--cell-am)) 50%,
-      hsl(var(--cell-pm)) 50%
-    );
-    border: 1px solid hsl(var(--border));
-    border-style: solid;
-  }
-
-  .mood-cell[data-state="pad"] {
-    background: hsl(var(--accent-surface));
-    border: 0;
-    color: hsl(var(--muted-strong));
-    font-size: 0.6875rem;
-    line-height: 1;
-  }
-
-  /* Two-tone admission glyph — a pale plate with the red mark inset, and the
-     cross cut out of the mark in the plate colour. Whichever end of the mood
-     scale the swatch underneath sits at, one of the two tones separates the
-     glyph from it. */
-  .admission-glyph {
-    width: 58%;
-    height: 58%;
-    border-radius: 19%;
-    background: hsl(var(--admission-plate));
-    display: grid;
-    place-items: center;
-  }
-
-  .admission-glyph > i {
-    display: block;
-    position: relative;
-    width: 82%;
-    height: 82%;
-    border-radius: 14%;
-    background: hsl(var(--admission-mark));
-  }
-
-  .admission-glyph > i::before,
-  .admission-glyph > i::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    background: hsl(var(--admission-plate));
-  }
-
-  .admission-glyph > i::before {
-    width: 52%;
-    height: 17%;
-  }
-
-  .admission-glyph > i::after {
-    width: 17%;
-    height: 52%;
-  }
-
   /* ── Prose ──────────────────────────────────────────────────────────────
      Hand-written rather than @tailwindcss/typography: the plugin would need
      re-theming against every token here to stop looking like a different
@@ -316,7 +283,8 @@
   }
 
   .prose h2,
-  .prose h3 {
+  .prose h3,
+  .prose h4 {
     font-family: var(--font-humeur-display);
     letter-spacing: -0.018em;
     line-height: 1.2;
@@ -332,6 +300,16 @@
   .prose h3 {
     margin-top: 2rem;
     font-size: 1.1875rem;
+    font-weight: 600;
+  }
+
+  /* Notion's heading_3. The body's headings are shifted down one level
+     because the post title is the page's h1 (see lib/notion/render.ts), so
+     a three-level Notion document reaches h4 — which nothing in this
+     stylesheet covered while posts were hand-written Markdown. */
+  .prose h4 {
+    margin-top: 1.75rem;
+    font-size: 1.0625rem;
     font-weight: 600;
   }
 
@@ -369,13 +347,13 @@
   }
 
   .prose li::marker {
-    color: hsl(var(--muted-strong));
+    color: hsl(var(--muted-foreground));
   }
 
   .prose blockquote {
     border-left: 2.5px solid hsl(var(--accent));
     padding-left: 1.125rem;
-    color: hsl(var(--muted-strong));
+    color: hsl(var(--muted-foreground));
   }
 
   .prose code {

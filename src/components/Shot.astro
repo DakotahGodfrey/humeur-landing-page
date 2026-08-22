@@ -1,0 +1,211 @@
+---
+import { Image } from "astro:assets"
+import type { ImageMetadata } from "astro"
+
+/**
+ * A real screenshot of the app, in the page's instrument frame.
+ *
+ * These replaced a set of hand-drawn Astro recreations of the app UI. The
+ * recreations were prettier to work on and drifted three views behind the
+ * product — the day view on the page had no structured fields at all, months
+ * after they shipped. A screenshot cannot drift without someone noticing.
+ *
+ * Three axes, and they're kept on separate elements on purpose:
+ *
+ *   theme   — `light` required, `dark` optional. Where both exist the pair is
+ *             swapped in CSS on the *effective* theme, matching ThemeToggle
+ *             exactly: the theme can come from the OS or from the button, and
+ *             a swap keyed on only one of those is wrong half the time.
+ *   width   — `mobile` optional. A 2880px-wide capture scaled into a 330px
+ *             column is a smear, and the year grid is the worst of them, so
+ *             below 40rem the phone capture is shown instead.
+ *   overflow— with no `mobile` to fall back to, the frame scrolls sideways on
+ *             narrow screens rather than shrinking the capture past reading.
+ *
+ * Theme and width are toggled on different elements (imgs inside .shot-wide
+ * for theme, the wrappers themselves for width) because both would otherwise
+ * be fighting over `display` on the same node.
+ *
+ * Not every view has a dark or a phone capture yet. A light-only shot renders
+ * as-is rather than being tinted or dimmed to fit the dark page — the mood
+ * scale is calibrated, and a filter over a screenshot of it would
+ * misrepresent the one thing here that has to be exact.
+ *
+ * Cost of doing it this way: every variant is in the markup, so a browser
+ * fetches variants it will not display — about 88KB of phone captures on a
+ * desktop visit, and one unused theme either way. <picture> with <source
+ * media> would download exactly one, and it was the first attempt, but its
+ * media queries only read the OS setting: it cannot follow the theme button,
+ * and a manual toggle that doesn't change the screenshots is worse than the
+ * bytes. Full page weight is around 410KB of images, all lazy past the hero.
+ * If that budget ever gets tight, the phone captures are the ones to cut.
+ */
+
+interface Props {
+  light: ImageMetadata
+  dark?: ImageMetadata
+  /**
+   * Phone capture for narrow screens. Used in both themes — the phone
+   * captures aren't a matched light/dark set, and a third axis of pairing
+   * would cost more than it returns.
+   */
+  mobile?: ImageMetadata
+  /** What the screenshot shows, for anyone who can't see it. Not "screenshot". */
+  alt: string
+  /** Left side of the frame's header rail. */
+  label?: string
+  /** Right side of the frame's header rail — a reading, not a sentence. */
+  meta?: string
+  /** Above-the-fold shots load eagerly; everything else waits. */
+  priority?: boolean
+  class?: string
+}
+
+const {
+  light,
+  dark,
+  mobile,
+  alt,
+  label,
+  meta,
+  priority = false,
+  class: className = "",
+} = Astro.props
+
+// Captures are 2880px wide at 2x. Anything above ~1800 is past the point
+// where the calendar cells gain any detail, so the ladder stops there.
+const widths = [640, 960, 1280, 1800]
+
+// Spelled out per-element below rather than spread from one object: spreading
+// widens `loading` to `string`, which drops <Image> out of the props union
+// that makes width and height optional, and it then asks for both.
+const loading = priority ? "eager" : "lazy"
+const decoding = priority ? "sync" : "async"
+const imgClass = "block h-auto w-full"
+
+// With a phone capture the wide one never renders below 40rem, so it can be
+// asked for at 40rem-and-up sizes only. Without one it has to cover the whole
+// range, because it's what a 360px screen gets.
+const sizes = mobile
+  ? "(min-width: 78rem) 74rem, (min-width: 40rem) 94vw, 40rem"
+  : "(min-width: 78rem) 74rem, 94vw"
+---
+
+<figure class:list={["shot m-0", className]}>
+  <div class="overflow-hidden rounded-[10px] border border-border-strong bg-surface">
+    {
+      (label || meta) && (
+        <div class="flex items-center justify-between gap-4 border-b border-border bg-band px-3.5 py-2.5 font-mono text-[10px] tracking-[0.13em] text-muted-foreground uppercase">
+          <span>{label}</span>
+          {meta && <span>{meta}</span>}
+        </div>
+      )
+    }
+
+    {/* No phone capture: let it scroll sideways instead of scaling it into
+        illegibility. The min-width is the point below which the calendar
+        stops being readable, not a design width. */}
+    <div class:list={["shot-wide", mobile ? "shot-has-narrow" : "overflow-x-auto"]}>
+      <div class:list={[!mobile && "min-w-[38rem]"]}>
+        <Image
+          src={light}
+          alt={alt}
+          widths={widths}
+          sizes={sizes}
+          loading={loading}
+          decoding={decoding}
+          format="webp"
+          quality={82}
+          class:list={[imgClass, dark && "shot-light"]}
+        />
+        {
+          dark && (
+            <Image
+              src={dark}
+              alt=""
+              aria-hidden="true"
+              widths={widths}
+              sizes={sizes}
+              loading={loading}
+              decoding={decoding}
+              format="webp"
+              quality={82}
+              class:list={[imgClass, "shot-dark"]}
+            />
+          )
+        }
+      </div>
+    </div>
+
+    {
+      mobile && (
+        <div class="shot-narrow">
+          <Image
+            src={mobile}
+            alt={alt}
+            widths={[390, 780]}
+            sizes="94vw"
+            loading={loading}
+            decoding={decoding}
+            format="webp"
+            quality={82}
+            class={imgClass}
+          />
+        </div>
+      )
+    }
+  </div>
+
+  {
+    Astro.slots.has("default") && (
+      <figcaption class="mt-3.5 font-mono text-[10px] leading-[1.6] tracking-[0.05em] text-muted-foreground">
+        <slot />
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  /* ── Width ──────────────────────────────────────────────────────────────
+     Only present when a phone capture was passed; otherwise .shot-narrow
+     doesn't exist and .shot-wide shows at every size. */
+  .shot-narrow {
+    display: none;
+  }
+
+  /* `.shot-has-narrow` rather than `.shot-wide:has(+ .shot-narrow)`: the
+     :has() form is correct CSS and does not survive Astro's style scoping —
+     it compiled to a rule that never matched, and both variants rendered at
+     once. Whether a phone capture was passed is known at build time anyway,
+     so it goes on the element as a class. */
+  @media (max-width: 39.999rem) {
+    .shot-has-narrow {
+      display: none;
+    }
+    .shot-narrow {
+      display: block;
+    }
+  }
+
+  /* ── Theme ──────────────────────────────────────────────────────────────
+     Follows the effective theme, so it stays correct whether the theme came
+     from the OS or from the toggle. Same three-case structure as ThemeToggle;
+     if one changes, change both. */
+  .shot-dark {
+    display: none;
+  }
+  :global(:root[data-theme="dark"]) .shot-dark {
+    display: block;
+  }
+  :global(:root[data-theme="dark"]) .shot-light {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .shot-dark {
+      display: block;
+    }
+    :global(:root:not([data-theme="light"])) .shot-light {
+      display: none;
+    }
+  }
+</style>
