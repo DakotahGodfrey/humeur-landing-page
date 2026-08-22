@@ -89,7 +89,7 @@ export default {
     panelLabel: "Year view",
     panelMeta: "Example data",
     caption:
-      "Every square is one logged day. Days you didn't log stay empty rather than being filled in as neutral — a gap is information too.",
+      "Every coloured square is one logged day. Days you don't log stay become their own state — a gap is information too.",
   },
 
   how: {
@@ -121,8 +121,7 @@ export default {
     lead: "A morning can be rough, but you might still have a great evening",
     panelLabel: "Day view",
     panelMeta: "Example entry",
-    caption:
-      "AM and PM are set separately. The square at the top left is the day as the calendar will draw it.",
+    caption: "AM and PM are set separately.",
   },
 
   /**
@@ -168,7 +167,7 @@ export default {
 
   patterns: {
     section: "Patterns",
-    heading: "Four views of the same history.",
+    heading: "Four views, the same history.",
     lead: "Day, week, month, year — the same entries at four scales. A daily journal. A week shows what's been happening lately. A month at a time. A year shows the shape of all of it.",
     memory:
       "Memory can be faulty. A low stretch makes the past look worse than it was; a good one can make a hard month feel like it never happened. You might find a low period you'd forgotten, or see that a change you remember as sudden was actually gradual.",
@@ -193,8 +192,7 @@ export default {
     files: ["Provider summary · print or PDF", "JSON", "CSV"],
     filesNote:
       "Data files always contain your full history, whatever range is on screen.",
-    caption:
-      "Both pages of the printed summary, shown as one: month grids, the mood scale, the figures and the admissions list.",
+    caption: "A printed summary: month grids, mood scale, fact and figures.",
     pull: "A mood history is a medical record about you. It's never behind a paywall.",
   },
 
@@ -281,7 +279,7 @@ export default {
       },
     ],
     close:
-      "Tracking, a pattern, someone to show it to, and a page to hand them. That's the whole loop.",
+      "Tracking, a pattern, someone to show it to, and a page to hand them",
   },
 
   languages: {
@@ -352,7 +350,7 @@ export default {
     panelLabel: "Crisis support",
     panelMeta: "Canada shown",
     caption:
-      "The panel opens over whatever view you were on, with the lines for your region, the local emergency number, and a way out to everywhere else. No account, no plan, no sign-up.",
+      "Crisis resources, with links for your region, the local emergency number, and other regional crisis supports.",
   },
 
   finalCta: {
