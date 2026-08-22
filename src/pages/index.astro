@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro"
 import Hero from "@/components/sections/Hero.astro"
 import HowItWorks from "@/components/sections/HowItWorks.astro"
 import TheSplit from "@/components/sections/TheSplit.astro"
+import Entry from "@/components/sections/Entry.astro"
 import Patterns from "@/components/sections/Patterns.astro"
 import Export from "@/components/sections/Export.astro"
 import Privacy from "@/components/sections/Privacy.astro"
@@ -13,7 +14,9 @@ import Crisis from "@/components/sections/Crisis.astro"
 import FinalCta from "@/components/sections/FinalCta.astro"
 
 /**
- * Section order matches the approved mockup.
+ * Section order matches the approved mockup, with §03 (the structured entry
+ * fields) added after the split — the split earns attention, and the entry
+ * section is the concrete answer to what you do with it.
  *
  * Export states that it's free before pricing is mentioned at all, and the
  * crisis link is in the header-adjacent footer nav as well as its own
@@ -29,6 +32,7 @@ import FinalCta from "@/components/sections/FinalCta.astro"
   <Hero />
   <HowItWorks />
   <TheSplit />
+  <Entry />
   <Patterns />
   <Export />
   <Privacy />

@@ -1,7 +1,7 @@
 ---
 import Section from "../Section.astro"
-import Button from "../Button.astro"
-import { links } from "@/lib/site"
+import Shot from "../Shot.astro"
+import { shots } from "@/lib/shots"
 import { useTranslations } from "@/i18n"
 
 /**
@@ -37,7 +37,18 @@ const t = useTranslations()
         ))
       }
     </ul>
-
-    
   </div>
+
+  {/* Outside the crisis-tinted card, in the page's ordinary frame. The tint
+      marks the surface where red means something; the screenshot is a
+      screenshot like every other one on the page and doesn't need it. */}
+  <Shot
+    class="mt-6"
+    light={shots.crisis.light}
+    alt={t.shots.crisis}
+    label={t.crisis.panelLabel}
+    meta={t.crisis.panelMeta}
+  >
+    {t.crisis.caption}
+  </Shot>
 </Section>

@@ -35,6 +35,29 @@ export const TAGS = {
     label: "Product",
     blurb: "What shipped, what changed, and why a decision went the way it did.",
   },
+
+  /* ── Added when the posts moved to Notion ──────────────────────────────
+     These two are the options that already existed on the Notion database's
+     Tags property, and they had no counterpart here — so every row in Notion
+     failed the schema's tag check and nothing could publish.
+
+     Adding them was the option that keeps Notion authoritative about what a
+     post is tagged, rather than mapping `intro` and `about` onto `product`
+     and inventing editorial meaning the author didn't write. It is also the
+     cheapest to undo: delete these two, retag the rows in Notion, and the
+     loader will report anything left pointing at them.
+
+     Adding a tag here is still a decision — see the note at the top. Adding
+     one in Notion alone is not: the loader drops unknown tags with a warning
+     and holds back a post that has none left. */
+  intro: {
+    label: "Intro",
+    blurb: "Starting points — what Humeur is, and what it's for.",
+  },
+  about: {
+    label: "About",
+    blurb: "The project behind the app: why it exists, and how it gets built.",
+  },
 } as const
 
 export type TagKey = keyof typeof TAGS

@@ -1,36 +1,96 @@
 ---
+import { Image } from "astro:assets"
 import Section from "../Section.astro"
-import Panel from "../Panel.astro"
-import MonthCalendar from "../MonthCalendar.astro"
-import Legend from "../Legend.astro"
-import { MONTH_NAMES } from "@/lib/calendar"
-import { PATTERN_MONTHS } from "@/lib/site"
+import Shot from "../Shot.astro"
+import { shots } from "@/lib/shots"
 import { useTranslations } from "@/i18n"
 
+/**
+ * Show, don't assert. A calendar of real-looking data does more than a
+ * sentence about insight, so the section is mostly pictures.
+ *
+ * The year view is already in the hero and the day view is in §02, so this
+ * shows the two that are left — month and week — and then the phone captures,
+ * because "does this work on my phone" is a real question and a screenshot
+ * answers it better than a claim about responsive design.
+ */
+
 const t = useTranslations()
-const first = PATTERN_MONTHS[0]
-const last = PATTERN_MONTHS[PATTERN_MONTHS.length - 1]
-const meta = `${MONTH_NAMES[first.month - 1].slice(0, 3)} – ${MONTH_NAMES[last.month - 1].slice(0, 3)} ${last.year}`
+
+/**
+ * One alt text across the three, on the first. They're one illustration of
+ * one point, and three separate descriptions of "the app, on a phone" is
+ * noise to anyone listening to it rather than looking.
+ *
+ * The month capture here is the dark one deliberately — the row shows both
+ * themes without the page having to claim it has them.
+ */
+const phones = [
+  { src: shots.mobileMonth.light, alt: t.shots.mobile, hidden: undefined },
+  { src: shots.mobileYear.light, alt: "", hidden: true },
+  { src: shots.mobileDay.light, alt: "", hidden: true },
+] as const
 ---
 
-<Section id="patterns" index="03" label={t.patterns.section}>
+<Section id="patterns" index="04" label={t.patterns.section}>
   <h2
     class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
   >
     {t.patterns.heading}
   </h2>
-  <p class="max-w-[40rem] text-[17px] text-muted-strong">{t.patterns.lead}</p>
+  <p class="max-w-[42rem] text-[17px] text-muted-foreground">{t.patterns.lead}</p>
+  <p class="mt-4 max-w-[42rem] text-[17px]">{t.patterns.memory}</p>
 
-  <Panel label={t.patterns.panelLabel} meta={meta} class="mt-8">
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-4.5">
-      {PATTERN_MONTHS.map((m) => <MonthCalendar year={m.year} month={m.month} />)}
-    </div>
-    <div class="mt-5 border-t border-border pt-4">
-      <Legend />
-    </div>
-  </Panel>
+  {/* No `mobile` here on purpose, so this one scrolls sideways on a phone
+      instead. The only month capture at phone width is the dark one, and a
+      dark screenshot dropped into the light page reads as a bug. It earns its
+      place in the row below, where the mixed themes are the point. */}
+  <Shot
+    class="mt-8"
+    light={shots.month.light}
+    dark={shots.month.dark}
+    alt={t.shots.month}
+    label={t.patterns.panelLabel}
+    meta={t.patterns.monthMeta}
+  />
 
-  <p class="mt-5 font-mono text-[10px] leading-[1.6] tracking-[0.05em] text-muted-strong">
-    {t.patterns.caption}
-  </p>
+  <Shot
+    class="mt-6"
+    light={shots.week.light}
+    alt={t.shots.week}
+    label={t.patterns.weekLabel}
+    meta={t.patterns.weekMeta}
+  />
+
+  {/* Phone captures are portrait, so they go three-up rather than stacked —
+      at full width a single 780×1688 screenshot is a very tall column of
+      nothing. Below 40rem they stack, which is the one place a tall image is
+      the right shape anyway. */}
+  <figure class="m-0 mt-10">
+    <div
+      class="grid gap-4 rounded-[10px] border border-border-strong bg-surface p-3.5 min-[40rem]:grid-cols-3 sm:p-4.5"
+    >
+      {
+        phones.map(({ src, alt, hidden }) => (
+          <Image
+            src={src}
+            alt={alt}
+            aria-hidden={hidden}
+            widths={[390, 780]}
+            sizes="(min-width: 40rem) 24rem, 92vw"
+            loading="lazy"
+            decoding="async"
+            format="webp"
+            quality={82}
+            class="block h-auto w-full rounded-md border border-border"
+          />
+        ))
+      }
+    </div>
+    <figcaption
+      class="mt-3.5 font-mono text-[10px] leading-[1.6] tracking-[0.05em] text-muted-foreground"
+    >
+      {t.patterns.mobileCaption}
+    </figcaption>
+  </figure>
 </Section>
