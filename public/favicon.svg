@@ -1,13 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- A split day: Okay in the morning, Bad in the evening. The same 135°
-       construction the calendar uses, and the same two theme-invariant
-       swatches, so the mark means the thing the product is about. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Humeur">
+  <!-- A split day: Great in the morning, Bad in the evening. The same 135°
+       construction the calendar uses, and two of the theme-invariant mood
+       swatches, so the mark means the thing the product is about.
+
+       Matched to app/logo-1024.png rather than drawn beside it. It previously
+       used Okay (green) over Bad on a 24%-radius square, so the site's mark
+       and the app's icon were two different objects.
+
+       The outline is the logo's own corner curve — a superellipse of exponent
+       3 at R = 159/1024 of the width, fitted to the traced alpha edge of that
+       file, sampled rather than approximated with a circular `rx`. Generated;
+       regenerate from the source PNG rather than hand-editing the path.
+
+       Colours are hsl() of the mood tokens so the source of the values is
+       legible. They are theme-invariant and must stay that way. -->
   <defs>
     <linearGradient id="split" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="50%" stop-color="#94BF6E" />
-      <stop offset="50%" stop-color="#786CB2" />
+      <stop offset="50%" stop-color="hsl(50 90% 73%)" />
+      <stop offset="50%" stop-color="hsl(250 31% 56%)" />
     </linearGradient>
   </defs>
-  <rect width="32" height="32" rx="7.7" fill="url(#split)" />
-  <rect x="0.5" y="0.5" width="31" height="31" rx="7.2" fill="none" stroke="#2D251F" stroke-opacity="0.22" />
+  <path d="M4.969 0L27.031 0L29.181 0.138L29.715 0.276L30.074 0.414L30.349 0.552L30.571 0.69L30.756 0.828L30.914 0.966L31.051 1.104L31.17 1.242L31.276 1.38L31.368 1.518L31.451 1.656L31.524 1.794L31.589 1.932L31.647 2.07L31.698 2.208L31.743 2.346L31.784 2.484L31.819 2.622L31.85 2.76L31.877 2.898L31.901 3.036L31.921 3.174L31.938 3.313L31.952 3.451L31.964 3.589L31.974 3.727L31.982 3.865L31.988 4.003L31.992 4.141L31.996 4.279L31.998 4.417L31.999 4.555L32 4.693L32 4.831L32 4.969L32 27.031L32 27.169L32 27.307L31.999 27.445L31.998 27.583L31.996 27.721L31.992 27.859L31.988 27.997L31.982 28.135L31.974 28.273L31.964 28.411L31.952 28.549L31.938 28.688L31.921 28.826L31.901 28.964L31.877 29.102L31.85 29.24L31.819 29.378L31.784 29.516L31.743 29.654L31.698 29.792L31.647 29.93L31.589 30.068L31.524 30.206L31.451 30.344L31.368 30.482L31.276 30.62L31.17 30.758L31.051 30.896L30.914 31.034L30.756 31.172L30.571 31.31L30.349 31.448L30.074 31.586L29.715 31.724L29.181 31.862L27.031 32L4.969 32L2.819 31.862L2.285 31.724L1.926 31.586L1.651 31.448L1.429 31.31L1.244 31.172L1.086 31.034L0.949 30.896L0.83 30.758L0.724 30.62L0.632 30.482L0.549 30.344L0.476 30.206L0.411 30.068L0.353 29.93L0.302 29.792L0.257 29.654L0.216 29.516L0.181 29.378L0.15 29.24L0.123 29.102L0.099 28.964L0.079 28.826L0.062 28.688L0.048 28.549L0.036 28.411L0.026 28.273L0.018 28.135L0.012 27.997L0.008 27.859L0.004 27.721L0.002 27.583L0.001 27.445L0 27.307L0 27.169L0 27.031L0 4.969L0 4.831L0 4.693L0.001 4.555L0.002 4.417L0.004 4.279L0.008 4.141L0.012 4.003L0.018 3.865L0.026 3.727L0.036 3.589L0.048 3.451L0.062 3.313L0.079 3.174L0.099 3.036L0.123 2.898L0.15 2.76L0.181 2.622L0.216 2.484L0.257 2.346L0.302 2.208L0.353 2.07L0.411 1.932L0.476 1.794L0.549 1.656L0.632 1.518L0.724 1.38L0.83 1.242L0.949 1.104L1.086 0.966L1.244 0.828L1.429 0.69L1.651 0.552L1.926 0.414L2.285 0.276L2.819 0.138L4.969 0Z" fill="url(#split)" />
 </svg>

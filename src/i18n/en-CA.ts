@@ -24,7 +24,7 @@
 
 export default {
   meta: {
-    title: "Humeur — One day is a data point. Ninety days is a pattern.",
+    title: "Humeur — One day is a data point. Ninety days are a pattern.",
     description:
       "A mood journal that tracks the morning and the evening separately, in four views, with a printable summary for your doctor. Encrypted on your device. Free with no account.",
   },
@@ -53,31 +53,54 @@ export default {
     light: "Light",
   },
 
+  /**
+   * Alt text for the product captures.
+   *
+   * These describe what the screen shows, not that it is a screenshot — a
+   * screen reader already says "image". Where a capture carries figures, the
+   * figures are in the alt text, because they're the point of the picture and
+   * they are otherwise unavailable to anyone not looking at it.
+   *
+   * All of them are example data from a guest session, and the alt text says
+   * so. It would be an odd kind of dishonesty to put a stranger's illustrative
+   * year on the page and let it read as somebody's real one.
+   */
+  shots: {
+    year: "The year view: twelve months of example entries as one grid, each day a coloured square, with a running average beside every month and 207 of 365 days logged.",
+    month:
+      "The month view for June: a calendar of example entries, most days a single colour, several split diagonally where the morning and the evening differed, and a few left empty.",
+    week: "The week view: two weeks of example entries side by side as large squares, each labelled with its date, with an average for each week.",
+    day: "The day entry screen: one large square for the day, separate AM and PM rows of the seven mood levels, and structured fields for sleep, medication, social contact, exercise, stressful events and routine changes.",
+    crisis:
+      "The crisis support panel, set to Canada: the 9-8-8 Suicide Crisis Helpline, available 24/7, with buttons to call or text it, the Quebec line, the emergency number 911, and a link to helplines outside Canada.",
+    mobile:
+      "The same month, year and day views on a phone-sized screen, laid out in a single column.",
+  },
+
   hero: {
     eyebrow: "Mood journal · Early access",
-    headline: "One day is a data point. Ninety days is a pattern.",
+    // "days are", not "days is" — chosen for how it reads aloud, not by
+    // oversight. Leave it alone; it has been through this once already.
+    headline: "One day is a data point. Ninety days are a pattern.",
     sub: "Ninety days of mornings and evenings, printed on one page for your next appointment.",
     primaryCta: "Start tracking",
     secondaryCta: "See how it works",
     note: "No account needed. Works on your device, free, for as long as you want.",
-    panelLabel: "Month view",
-    readout: {
-      coverage: "Coverage",
-      logged: "Days logged",
-      average: "Average mood",
-      range: "Range",
-    },
+    panelLabel: "Year view",
+    panelMeta: "Example data",
+    caption:
+      "Every square is one logged day. Days you didn't log stay empty rather than being filled in as neutral — a gap is information too.",
   },
 
   how: {
     section: "How it works",
-    heading: "One entry. A growing picture.",
-    lead: "Pick a colour for the morning, the evening, or the whole day. Notes are optional — sleep, meds, what happened. That's the habit; everything else is what it becomes over time.",
+    heading: "Log a morning, an evening or a whole day",
+    lead: "Pick a mood for the morning, the evening, or the whole day. You can also add a freeform or structured note. It's meant to be something you can still do on your worst days, not just your best.",
     specs: [
       {
         key: "Track",
-        title: "One entry, ten seconds",
-        body: "Seven levels, Crisis through Great. A note when you want one. A hospital admission when there's one to note.",
+        title: "Single entry",
+        body: "Seven preset levels, from Crisis to Great. A freeform note for free-flow journaling or structured fields to get started.",
       },
       {
         key: "See",
@@ -87,34 +110,85 @@ export default {
       {
         key: "Share",
         title: "Built for the appointment",
-        body: "Bring a record instead of trying to reconstruct six weeks from memory in a fifteen-minute visit.",
+        body: "Export a record instead of trying to reconstruct six weeks from memory in a fifteen-minute visit.",
       },
     ],
   },
 
   split: {
     section: "The split",
-    heading: "A day has two halves.",
-    lead: "When both match, one tap. When they don't, the calendar keeps both.",
+    heading: "A day with two halves.",
+    lead: "A morning can be rough, but you might still have a great evening",
+    panelLabel: "Day view",
+    panelMeta: "Example entry",
+    caption:
+      "AM and PM are set separately. The square at the top left is the day as the calendar will draw it.",
+  },
+
+  /**
+   * Added after the structured fields shipped. The page had described notes
+   * as a plain text box for months after they landed, which is the same class
+   * of error as claiming a feature that doesn't exist — the copy and the
+   * product disagreed, and the copy was the one that was wrong.
+   *
+   * Every field named here is visible in the capture beside it. Don't add one
+   * that isn't, and don't imply the app does anything with them beyond
+   * recording them: there is no analysis, no correlation, no insight.
+   */
+  entry: {
+    section: "The entry",
+    heading: "A note that holds more than a sentence.",
+    lead: "Write freeform when you want to. Switch to structured when you need the prompts to get started.",
+    // both: "Some days there's plenty to say. Some days all you need is to pick a colour and move on. Both are valid, and a day you didn't log is still information.",
+    fieldsLabel: "Structured fields",
+    fields: [
+      { name: "Sleep", body: "Hours, on a slider." },
+      {
+        name: "Medication",
+        body: "Name, amount, unit and time.",
+      },
+      { name: "Social", body: "Stayed in, saw friends, a work event, a text." },
+      { name: "Exercise", body: "Intensity, activity, minutes." },
+      {
+        name: "Stressful event",
+        body: "An argument, a deadline, bad news. Blank if none.",
+      },
+      {
+        name: "Routine change",
+        body: "New job, moved, shift change. Blank if none.",
+      },
+    ],
+    // Reads as a limitation and is meant to. The alternative is letting people
+    // assume there's an engine here, and finding out otherwise is worse.
+    // inert:
+    //   "Humeur records these and shows them back to you. It doesn't correlate them, or tell you what they mean — there's no model here reading your life. The pattern is for you and primary care provider if you choose",
+    private:
+      "Any note can be marked private. Private notes stay out of the printed summary, and the summary says how many were held back. Never which.",
   },
 
   patterns: {
     section: "Patterns",
-    heading: "A month says more than any single day.",
-    lead: "Seven colours, ordered light to dark. The year view fits twelve months on one screen.",
+    heading: "Four views of the same history.",
+    lead: "Day, week, month, year — the same entries at four scales. A daily journal. A week shows what's been happening lately. A month at a time. A year shows the shape of all of it.",
+    memory:
+      "Memory can be faulty. A low stretch makes the past look worse than it was; a good one can make a hard month feel like it never happened. You might find a low period you'd forgotten, or see that a change you remember as sudden was actually gradual.",
     panelLabel: "Month view",
-    caption:
-      "Days you didn't log stay empty rather than being filled in as neutral. A gap is information too.",
+    weekLabel: "Week view",
+    weekMeta: "Example data",
+    monthMeta: "Example data",
+    mobileLabel: "On a phone",
+    mobileMeta: "Month · year · day",
+    // caption:
+    //   "Days you didn't log stay has it's own state, A gap is information too.",
+    mobileCaption: "Optimized for mobile.",
   },
 
   exportSection: {
     section: "Export",
     heading: "Your record, in a form your doctor can read.",
-    lead: "Month grids, the mood scale, your figures, and any hospital admissions listed plainly.",
+    lead: "Appointments are short, memory is patchy. Humeur's summary month grids, the mood scale, your notes — on paper, in order. Saves you time trying to remember in your clinician's office.",
     notes:
       "Notes stay out unless you choose to include them, and you can decide note by note. The printed page says how many you withheld. Never which.",
-    // Never soften this into a tier benefit. Export is how someone leaves,
-    // and a mood history is a medical record about the person holding it.
     free: "Free on every plan, including if you cancel.",
     files: ["Provider summary · print or PDF", "JSON", "CSV"],
     filesNote:
@@ -159,6 +233,15 @@ export default {
   providers: {
     section: "Providers",
     heading: "And if you don't have a provider yet.",
+    /**
+     * Provider search shipped the full type filter on 21 Aug 2026.
+     *
+     * Flagged here because the notes post "Meet Your Humeur" still describes
+     * it as "still in alpha... currently allows you to find the nearest
+     * hospital", with the rest as roadmap. That post is now the stale side of
+     * the pair, and it is published. This copy is correct; the post needs the
+     * edit. Check the app before narrowing this on the strength of the post.
+     */
     lead: "Humeur can find psychologists, psychiatrists, therapists, counsellors, clinics and hospitals near you — filtered by the kind of help you're looking for and how far you can travel.",
     panelLabel: "Provider search",
     resultCount: "4 results",
@@ -173,6 +256,9 @@ export default {
       { label: "Hospital", on: false },
       { label: "10 km", on: true },
     ],
+    // Illustrative results. Deliberately plain: no ratings, no availability,
+    // no "accepting referrals" — the search returns places, and inventing a
+    // field the data source doesn't have is exactly the failure mode above.
     // Illustrative results. Deliberately plain: no ratings, no availability,
     // no "accepting referrals" — the search returns places, and inventing a
     // field the data source doesn't have is exactly the failure mode above.
@@ -212,7 +298,7 @@ export default {
 
   pricing: {
     section: "Pricing",
-    heading: "Free on your device. A dollar a month to sync.",
+    heading: "Free on your device. Two dollars a month to sync.",
     free: {
       name: "On this device",
       meta: "No account",
@@ -238,7 +324,7 @@ export default {
       cta: "Start tracking",
     },
     note: "If you never want an account, you never need one.",
-    pull: "The usual business model for a free mental-health app is the data. A dollar a month is the reason Humeur doesn't need yours.",
+    pull: "The usual business model for a free mental-health app is the data. Two dollars a month is the reason Humeur doesn't need yours.",
   },
 
   about: {
@@ -263,10 +349,18 @@ export default {
       "Worldwide",
     ],
     cta: "Open crisis resources",
+    panelLabel: "Crisis support",
+    panelMeta: "Canada shown",
+    caption:
+      "The panel opens over whatever view you were on, with the lines for your region, the local emergency number, and a way out to everywhere else. No account, no plan, no sign-up.",
   },
 
   finalCta: {
-    heading: "Start today. See a pattern in a month.",
+    // Was "See a pattern in a month." That promised an outcome, and the
+    // notes post is careful not to: it cites a 2026 meta-analysis that found
+    // no robust overall effect of mood monitoring on symptoms. Looking back
+    // is the thing the product can actually guarantee.
+    heading: "Start today. Look back in a month.",
     sub: "No account needed to begin.",
     cta: "Start tracking",
   },

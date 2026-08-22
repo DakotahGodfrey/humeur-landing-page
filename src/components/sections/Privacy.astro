@@ -15,7 +15,7 @@ import { useTranslations } from "@/i18n"
 const t = useTranslations()
 ---
 
-<Section id="privacy" index="05" label={t.privacy.section}>
+<Section id="privacy" index="06" label={t.privacy.section}>
   <h2
     class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
   >
@@ -35,12 +35,12 @@ const t = useTranslations()
             >
               {row.key}
             </b>
-            <i class="mt-1 block tracking-[0.06em] text-muted-strong not-italic">{row.sub}</i>
+            <i class="mt-1 block tracking-[0.06em] text-muted-foreground not-italic">{row.sub}</i>
           </p>
           <div>
             <p class="max-w-[44rem] leading-[1.65]">{row.body}</p>
             {"aside" in row && row.aside && (
-              <p class="mt-2.5 max-w-[44rem] leading-[1.65] text-muted-strong">{row.aside}</p>
+              <p class="mt-2.5 max-w-[44rem] leading-[1.65] text-muted-foreground">{row.aside}</p>
             )}
           </div>
         </div>

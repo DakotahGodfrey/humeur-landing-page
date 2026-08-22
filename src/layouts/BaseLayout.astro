@@ -37,7 +37,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://humeur.dev"
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
 
+    {/* .ico first, SVG second: a browser that understands the SVG takes it
+        regardless of order, and one that doesn't never reads past the .ico.
+        Both are the split-day mark from app/logo-1024.png — the .ico is
+        downscaled from that file directly, the SVG traces its outline. */}
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {/* iOS home-screen bookmarks ignore both of the above. */}
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    {/* Paints the browser chrome to match --background in each theme, so the
+        address bar doesn't sit as a white bar above the warm sheet. */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4E6D7" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171A26" />
 
     {/* Self-hosted and preloaded, so there's no third-party request before
         first paint and no swap flash on the display face. */}

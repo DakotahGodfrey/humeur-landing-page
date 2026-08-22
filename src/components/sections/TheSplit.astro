@@ -1,12 +1,18 @@
 ---
 import Section from "../Section.astro"
-import DayView from "../DayView.astro"
+import Shot from "../Shot.astro"
+import { shots } from "@/lib/shots"
 import { useTranslations } from "@/i18n"
 
 /**
- * One sentence, then the screen. The split is easier to see than to read
- * about, and this audience does not need a paragraph explaining that a bad
- * evening is different from a bad day.
+ * The wedge. One sentence about what other trackers get wrong, one about what
+ * this does instead, then the screen — the split is easier to see than to
+ * read about, and this audience does not need a paragraph explaining that a
+ * bad evening is different from a bad day.
+ *
+ * The capture is the real day view, which is also the first place on the page
+ * the structured fields appear. The section after this one is about those;
+ * this one stays on the split and lets them sit in the background.
  */
 
 const t = useTranslations()
@@ -18,9 +24,16 @@ const t = useTranslations()
   >
     {t.split.heading}
   </h2>
-  <p class="max-w-[40rem] text-[17px] text-muted-strong">{t.split.lead}</p>
+  <p class="max-w-[40rem] text-[17px] text-muted-foreground">{t.split.lead}</p>
 
-  <div class="mt-8">
-    <DayView />
-  </div>
+  <Shot
+    class="mt-8"
+    light={shots.day.light}
+    mobile={shots.mobileDay.light}
+    alt={t.shots.day}
+    label={t.split.panelLabel}
+    meta={t.split.panelMeta}
+  >
+    {t.split.caption}
+  </Shot>
 </Section>

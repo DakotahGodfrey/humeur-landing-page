@@ -1,0 +1,56 @@
+---
+import Section from "../Section.astro"
+import Panel from "../Panel.astro"
+import { useTranslations } from "@/i18n"
+
+/**
+ * The structured fields.
+ *
+ * These shipped some time ago and the page never mentioned them — it was
+ * still describing notes as a free-text box. That is the same failure as
+ * claiming a feature that doesn't exist, pointed the other way, and it cost
+ * the page its most concrete answer to "what do I actually put in this".
+ *
+ * Two things have to stay in this section. The field list may only name
+ * fields that exist in the app. And the paragraph saying the app does nothing
+ * with them stays: a list of health inputs on a marketing page reads as the
+ * front end of an analysis engine unless it is explicitly told not to, and
+ * there is no engine. Finding that out later is worse than reading it here.
+ */
+
+const t = useTranslations()
+---
+
+<Section id="entry" index="03" label={t.entry.section}>
+  <div class="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-start lg:gap-12">
+    <div>
+      <h2
+        class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+      >
+        {t.entry.heading}
+      </h2>
+      <p class="max-w-[40rem] text-[17px] text-muted-foreground">{t.entry.lead}</p>
+
+      {/* `both` and `inert` are commented out in the dictionary. If either
+          comes back, its paragraph goes here — `both` after the lead, `inert`
+          before `private`. */}
+
+      <p class="mt-6 max-w-[40rem] leading-[1.65] text-muted-foreground">{t.entry.private}</p>
+    </div>
+
+    <Panel label={t.entry.fieldsLabel} meta={`${t.entry.fields.length} fields`} flush>
+      <dl>
+        {
+          t.entry.fields.map((field) => (
+            <div class="grid grid-cols-[8.5rem_1fr] items-baseline gap-3.5 border-b border-border px-3.5 py-3.5 last:border-b-0 sm:px-4.5">
+              <dt class="font-mono text-[10px] tracking-[0.11em] text-foreground uppercase">
+                {field.name}
+              </dt>
+              <dd class="text-sm leading-[1.6] text-muted-foreground">{field.body}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </Panel>
+  </div>
+</Section>
