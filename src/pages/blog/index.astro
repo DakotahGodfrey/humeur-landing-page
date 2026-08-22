@@ -13,7 +13,7 @@ const tags = await tagsInUse()
 <BaseLayout title={t.blog.title} description={t.blog.description}>
   <div class="mx-auto w-full max-w-[62rem] px-4 py-12 sm:px-8 sm:py-16">
     <header class="border-b border-border-strong pb-8">
-      <p class="mb-4 font-mono text-[11px] tracking-[0.14em] text-muted-strong uppercase">
+      <p class="mb-4 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
         {t.blog.eyebrow}
       </p>
       <h1
@@ -21,13 +21,13 @@ const tags = await tagsInUse()
       >
         {t.blog.heading}
       </h1>
-      <p class="mt-4 max-w-[38rem] text-[17px] text-muted-strong">{t.blog.lead}</p>
+      <p class="mt-4 max-w-[38rem] text-[17px] text-muted-foreground">{t.blog.lead}</p>
       {tags.length > 0 && <TagList tags={tags} class="mt-6" />}
     </header>
 
     {
       posts.length === 0 ? (
-        <p class="py-14 text-muted-strong">{t.blog.empty}</p>
+        <p class="py-14 text-muted-foreground">{t.blog.empty}</p>
       ) : (
         <div>
           {posts.map((post) => (

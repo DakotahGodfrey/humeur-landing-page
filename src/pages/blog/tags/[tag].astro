@@ -34,13 +34,13 @@ const label = tagLabel(tag)
   <div class="mx-auto w-full max-w-[62rem] px-4 py-12 sm:px-8 sm:py-16">
     <a
       href="/blog/"
-      class="mb-8 inline-block font-mono text-[10px] tracking-[0.15em] text-muted-strong uppercase no-underline hover:text-foreground"
+      class="mb-8 inline-block font-mono text-[10px] tracking-[0.15em] text-muted-foreground uppercase no-underline hover:text-foreground"
     >
       ← {t.blog.backToBlog}
     </a>
 
     <header class="border-b border-border-strong pb-8">
-      <p class="mb-4 font-mono text-[11px] tracking-[0.14em] text-muted-strong uppercase">
+      <p class="mb-4 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
         {t.blog.filedUnder}
       </p>
       <h1
@@ -48,7 +48,7 @@ const label = tagLabel(tag)
       >
         {label}
       </h1>
-      <p class="mt-4 max-w-[38rem] text-[17px] text-muted-strong">{tagBlurb(tag)}</p>
+      <p class="mt-4 max-w-[38rem] text-[17px] text-muted-foreground">{tagBlurb(tag)}</p>
       <TagList tags={allTags} current={tag} class="mt-6" />
     </header>
 
