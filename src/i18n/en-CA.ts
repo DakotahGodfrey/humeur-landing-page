@@ -71,6 +71,8 @@ export default {
       "The month view for June: a calendar of example entries, most days a single colour, several split diagonally where the morning and the evening differed, and a few left empty.",
     week: "The week view: two weeks of example entries side by side as large squares, each labelled with its date, with an average for each week.",
     day: "The day entry screen: one large square for the day, separate AM and PM rows of the seven mood levels, and structured fields for sleep, medication, social contact, exercise, stressful events and routine changes.",
+    provider:
+      "The provider search dialog: a location field reading Mapleford, Rivergate County, distance options from 5 to 125 km with 10 km selected, and filters for psychologist, psychiatrist, psychotherapist, counsellor, therapist, clinic, hospital and addiction support. Below them, 36 providers within 10 km — the first two listed with their type, street address, distance, phone number and a link to their website.",
     crisis:
       "The crisis support panel, set to Canada: the 9-8-8 Suicide Crisis Helpline, available 24/7, with buttons to call or text it, the Quebec line, the emergency number 911, and a link to helplines outside Canada.",
     mobile:
@@ -167,18 +169,16 @@ export default {
 
   patterns: {
     section: "Patterns",
-    heading: "Four views, the same history.",
+    heading: "Four views, same history.",
     lead: "Day, week, month, year — the same entries at four scales. A daily journal. A week shows what's been happening lately. A month at a time. A year shows the shape of all of it.",
     memory:
-      "Memory can be faulty. A low stretch makes the past look worse than it was; a good one can make a hard month feel like it never happened. You might find a low period you'd forgotten, or see that a change you remember as sudden was actually gradual.",
+      "Memory can be faulty. A low stretch makes the past look worse than it was, a good one can make a hard month feel like it never happened. You might find a low period you'd forgotten, or see that a change you remember as sudden was actually gradual.",
     panelLabel: "Month view",
     weekLabel: "Week view",
     weekMeta: "Example data",
     monthMeta: "Example data",
     mobileLabel: "On a phone",
     mobileMeta: "Month · year · day",
-    // caption:
-    //   "Days you didn't log stay has it's own state, A gap is information too.",
     mobileCaption: "Optimized for mobile.",
   },
 
@@ -192,27 +192,25 @@ export default {
     files: ["Provider summary · print or PDF", "JSON", "CSV"],
     filesNote:
       "Data files always contain your full history, whatever range is on screen.",
-    caption: "A printed summary: month grids, mood scale, fact and figures.",
+    caption: "A printed summary: month grids, mood scale, facts and figures.",
     pull: "A mood history is a medical record about you. It's never behind a paywall.",
   },
 
   privacy: {
     section: "Privacy",
     heading: "Humeur can't read your entries.",
-    // Capability, then limit, then cost, in that order. The limit and the cost
-    // are what make the capability believable — they can't be cut for brevity.
     rows: [
       {
         key: "Capability",
         sub: "What it does",
-        body: "Your entries are encrypted on your device before they're sent anywhere. What reaches the server is unreadable — not by policy, but because the decryption key never leaves your device. Your password doesn't either.",
+        body: "Your entries are encrypted on your device before they're sent anywhere. What reaches the server is illegible — not by policy, but because the decryption key never leaves your device.",
         aside:
           "Open your browser's network tab and watch an entry save if you'd like to see for yourself.",
       },
       {
         key: "Getting back in",
         sub: "Recovery",
-        body: "You get a recovery code at signup — the one way back in if you forget your password. On a device you trust, you can stay unlocked for 30 days instead of entering your password every visit. That's opt-in, and only ever your choice.",
+        body: "You get a recovery code at signup — the one way back to restore your notes if you reset your password. On a device you trust, you can stay unlocked for 30 days instead of entering your password every visit.",
       },
       {
         key: "The limit",
@@ -222,62 +220,43 @@ export default {
       {
         key: "The cost",
         sub: "The trade",
-        body: "The trade: if you lose your password and your recovery code, nobody can recover your entries. Including me.",
+        body: "The trade: if you lose your password and your recovery code, nobody can recover your entries.",
         tone: "cost",
       },
     ],
   },
 
+  /**
+   * Rewritten against the real capture (provider-*-spring.png) and the
+   * "Find a provider" promo card, replacing a hand-built mockup of filters
+   * and results that had drifted from the product.
+   *
+   * Three things the previous copy got wrong, all of them checkable against
+   * the screenshot beside it:
+   *
+   *   - It named six provider types. There are eight — psychotherapist and
+   *     addiction support were missing.
+   *   - "how far you wish to travel" was vague where the app is specific:
+   *     six fixed radii from 5 km to 125 km.
+   *   - It never said where the listings come from, or that they are
+   *     unverified. The app says both, at the foot of the dialog. Someone
+   *     phoning a number that has changed, or arriving at a clinic that has
+   *     moved, is a worse outcome here than on most sites — so the caveat
+   *     travels with the claim rather than being left in the product.
+   *
+   * It also searches by typed city or postal code, not by device location.
+   * Don't reintroduce "near you" phrasing that implies geolocation.
+   */
   providers: {
     section: "Providers",
     heading: "And if you don't have a provider yet.",
-    /**
-     * Provider search shipped the full type filter on 21 Aug 2026.
-     *
-     * Flagged here because the notes post "Meet Your Humeur" still describes
-     * it as "still in alpha... currently allows you to find the nearest
-     * hospital", with the rest as roadmap. That post is now the stale side of
-     * the pair, and it is published. This copy is correct; the post needs the
-     * edit. Check the app before narrowing this on the strength of the post.
-     */
-    lead: "Humeur can find psychologists, psychiatrists, therapists, counsellors, clinics and hospitals near you — filtered by the kind of help you're looking for and how far you can travel.",
+    lead: "Search by city or postal code: psychologists, psychiatrists, psychotherapists, counsellors, therapists, clinics, hospitals and addiction support. Filter by the kind of help you're after and by distance, from 5 km out to 125.",
     panelLabel: "Provider search",
-    resultCount: "4 results",
-    filtersLabel: "Example filters",
-    resultsLabel: "Example results",
-    filters: [
-      { label: "Psychiatrist", on: true },
-      { label: "Psychologist", on: false },
-      { label: "Therapist", on: false },
-      { label: "Counsellor", on: false },
-      { label: "Clinic", on: false },
-      { label: "Hospital", on: false },
-      { label: "10 km", on: true },
-    ],
-    // Illustrative results. Deliberately plain: no ratings, no availability,
-    // no "accepting referrals" — the search returns places, and inventing a
-    // field the data source doesn't have is exactly the failure mode above.
-    // Illustrative results. Deliberately plain: no ratings, no availability,
-    // no "accepting referrals" — the search returns places, and inventing a
-    // field the data source doesn't have is exactly the failure mode above.
-    results: [
-      {
-        distance: "1.2 km",
-        name: "Riverside Psychiatry",
-        type: "Psychiatrist",
-      },
-      { distance: "2.8 km", name: "Dr. A. Mercier", type: "Psychiatrist" },
-      {
-        distance: "4.6 km",
-        name: "Northbank Mental Health Clinic",
-        type: "Clinic · Psychiatry, psychology",
-      },
-      {
-        distance: "7.1 km",
-        name: "St. Elias Hospital — Outpatient",
-        type: "Hospital",
-      },
-    ],
+    panelMeta: "Example search",
+    // Reproduced from the foot of the dialog rather than paraphrased. It is
+    // the honest limit on the feature and belongs next to the claim.
+    caption:
+      "Listings come from OpenStreetMap. Availability and details aren't verified — confirm with the provider before you go.",
     close:
       "Tracking, a pattern, someone to show it to, and a page to hand them",
   },
