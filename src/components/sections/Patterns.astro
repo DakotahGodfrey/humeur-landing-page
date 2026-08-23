@@ -5,26 +5,10 @@ import Shot from "../Shot.astro"
 import { shots } from "@/lib/shots"
 import { useTranslations } from "@/i18n"
 
-/**
- * Show, don't assert. A calendar of real-looking data does more than a
- * sentence about insight, so the section is mostly pictures.
- *
- * The year view is already in the hero and the day view is in §02, so this
- * shows the two that are left — month and week — and then the phone captures,
- * because "does this work on my phone" is a real question and a screenshot
- * answers it better than a claim about responsive design.
- */
+
 
 const t = useTranslations()
 
-/**
- * One alt text across the three, on the first. They're one illustration of
- * one point, and three separate descriptions of "the app, on a phone" is
- * noise to anyone listening to it rather than looking.
- *
- * The month capture here is the dark one deliberately — the row shows both
- * themes without the page having to claim it has them.
- */
 const phones = [
   { src: shots.mobileMonth.light, alt: t.shots.mobile, hidden: undefined },
   { src: shots.mobileYear.light, alt: "", hidden: true },
@@ -38,13 +22,9 @@ const phones = [
   >
     {t.patterns.heading}
   </h2>
-  <p class="max-w-[42rem] text-[17px] text-muted-foreground">{t.patterns.lead}</p>
-  <p class="mt-4 max-w-[42rem] text-[17px]">{t.patterns.memory}</p>
+  <p class="max-w-2xl text-[17px] text-muted-foreground">{t.patterns.lead}</p>
+  <p class="mt-4 max-w-2xl text-[17px]">{t.patterns.memory}</p>
 
-  {/* No `mobile` here on purpose, so this one scrolls sideways on a phone
-      instead. The only month capture at phone width is the dark one, and a
-      dark screenshot dropped into the light page reads as a bug. It earns its
-      place in the row below, where the mixed themes are the point. */}
   <Shot
     class="mt-8"
     light={shots.month.light}
@@ -68,7 +48,7 @@ const phones = [
       the right shape anyway. */}
   <figure class="m-0 mt-10">
     <div
-      class="grid gap-4 rounded-[10px] border border-border-strong bg-surface p-3.5 min-[40rem]:grid-cols-3 sm:p-4.5"
+      class="grid gap-4 rounded-[10px] border border-border-strong bg-surface p-3.5 sm:grid-cols-3 sm:p-4.5"
     >
       {
         phones.map(({ src, alt, hidden }) => (
@@ -88,7 +68,7 @@ const phones = [
       }
     </div>
     <figcaption
-      class="mt-3.5 font-mono text-[10px] leading-[1.6] tracking-[0.05em] text-muted-foreground"
+      class="mt-3.5 font-mono text-[10px] leading-[1.6] tracking-wider text-muted-foreground"
     >
       {t.patterns.mobileCaption}
     </figcaption>
