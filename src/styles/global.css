@@ -17,73 +17,82 @@
 :root {
   color-scheme: light dark;
 
-  /* ── Light — "Pearled Ivory" ───────────────────────────────────────────
-     Taken from the app's globals.css, value for value. The reasoning lives
-     there and is not duplicated here; the short version is that the palette
-     is anchored on PANTONE 11-0907 TCX Pearled Ivory (#F0DFCC), which is
-     --band exactly, and everything else is derived from it at hue 30–32 so
-     paper, hairlines and ink are one family. Only the accent leaves it.
+  /* ── Light — "Cotton Letterpress" ──────────────────────────────────────
+     Taken from the app's globals.css, value for value, exported as
+     humeur-theme-cotton-letterpress.json. The reasoning lives there and is
+     not duplicated here; the short version is that the paper warmed and
+     flattened — the family now sits at hue 32–40 with far less chroma in the
+     hairlines — and the accent left plum for claret.
 
      If a value here disagrees with the app, the app wins — this is the copy.
 
-     The previous palette was a separate warm-gold direction at hue 38–40.
-     Nothing about it was wrong on its own; it just wasn't the product's. */
-  --background: 32 55% 90%; /* #F4E6D7 — the sheet */
-  --surface: 32 60% 98%; /* #FDFAF7 — cards, panels, screenshot frames */
-  --border: 30 30% 70%; /* #C9B39C */
-  --border-strong: 30 26% 54%; /* #A88A6B */
-  --foreground: 28 20% 14%; /* #2B231D — 12.60:1 on --background */
+     The previous palette was "Pearled Ivory": a cooler sheet at hue 30–32
+     anchored on PANTONE 11-0907 TCX, with a plum accent. Nothing about it was
+     wrong on its own; it just isn't the product's any more. */
+  --background: 39 52% 94%; /* #F8F2E8 — the sheet */
+  --surface: 40 45% 97%; /* #FBF8F4 — cards, panels, screenshot frames */
+  --border: 32 12% 70%; /* #BCB3A9 — 1.86:1 on the sheet, ON PURPOSE */
+  --border-strong: 30 14% 38%; /* #6E6153 — 5.39:1 on the sheet */
+  --foreground: 35 15% 15%; /* #2C2721 — 13.26:1 on --background */
 
-  /* One muted token, not two.
-     The old split existed because the app's --muted-foreground was 40 20% 48%
-     — 3.28:1 on the sheet, under AA for the 14–15px secondary copy that is
-     most of this page — so the site carried a darker second token beside it
-     and used that almost everywhere. The app has since fixed the token at
-     source: 30 24% 33% measures 5.85:1 on --background, 6.89:1 on --surface,
-     5.50:1 on --band. The workaround has nothing left to work around, so it
-     is gone and its 61 call sites now read --muted-foreground. */
-  --muted-foreground: 30 24% 33%; /* #685440 */
+  /* One muted token, not two. The app fixed the split at source and this
+     site followed; 33 11% 38% measures 5.37:1 on --background, 5.64:1 on
+     --surface, 4.66:1 on --band — AA at every size this page uses it. */
+  --muted-foreground: 33 11% 38%; /* #6C6256 */
 
-  /* Same value as --surface, from the app: hovering something on the sheet
-     lifts it to the colour a panel already is, rather than inventing a wash
-     of its own. Paper-coloured fills read --band instead. */
-  --accent-surface: 32 60% 98%; /* #FDFAF7 */
+  /* NO LONGER A COPY OF --surface. The app now ships a real accent-surface:
+     the accent's soft form, for selected states and washes, not a tint of
+     the paper. Anything that wanted paper-coloured fill reads --band. */
+  --accent-surface: 350 35% 91%; /* #F0E0E3 — accent 6.23:1, foreground 11.61:1 */
   /* The step off --surface, for hovers on things that already sit on it. */
-  --surface-hover: 32 50% 91%; /* #F4E9DD */
+  --surface-hover: 38 28% 91%; /* #EEEAE2 */
 
-  /* ── Accent — plum, not gold ──────────────────────────────────────────
-     The single largest visible change. The old accent was #F2B84B, a gold
-     that could only ever be a border or a fill: about 1.7:1 on --surface,
-     nowhere near type. Plum is the same hue family as dark mode's lavender
-     taken down to ink weight, so the accent is now ONE colour with a light
-     and a dark form rather than two unrelated ones. */
-  --accent: 288 28% 44%; /* #835190 — 5.70:1 on --surface, 4.84:1 on the sheet */
-  --accent-text: 288 36% 31%; /* #60336C — 9.23:1 on --surface */
+  /* ── Accent — claret, not plum ─────────────────────────────────────────
+     Still ONE colour with a light and a dark form: claret red in light,
+     lavender in dark. In light it is dark enough to be type — 7.48:1 on
+     --surface, 7.09:1 on the sheet.
+
+     It is a RED now, and it sits near --danger and --crisis in hue. They
+     separate on lightness and chroma, not hue, so a red control on this page
+     no longer reads as self-evidently destructive. Every destructive or
+     cautionary affordance here has to carry a label, not just a colour. */
+  --accent: 352 37% 37%; /* #813B45 */
+
+  /* "The accent, dark enough to BE type on a light surface" — NOT "text on
+     the accent fill". Same value as --accent, exactly as the app has it.
+     (The palette file this came from uses the name to mean the opposite; its
+     accent-text is a near-white. Do not take the value from there.) */
+  --accent-text: 352 37% 37%; /* #813B45 */
 
   /* What goes ON --accent. The app has no such token because nothing there
      fills with the accent and puts type on it; this site's primary button
-     does. It flipped with the accent: dark ink was correct on gold and would
-     be 1.9:1 on plum, so it is now the near-white plate. 5.70:1. */
-  --on-accent: 32 60% 98%; /* #FDFAF7 */
+     does. Plain white, which is what the app uses where it does need one:
+     7.94:1 on the claret. Not --accent-text — that would be claret on
+     claret. Not --surface either: 7.50:1 is fine, but the app's answer is
+     white and matching it is the point of this file. */
+  --on-accent: 0 0% 100%; /* #FFFFFF — 7.94:1 on --accent */
 
   /* ── Band ──────────────────────────────────────────────────────────────
-     The Pearled Ivory swatch itself, and the app's tint for full-bleed
-     strips — toolbar, legend, crisis. Here it paints the header rails on
-     panels and screenshot frames, which are the same kind of object. A
-     half-step off --background on purpose: --surface is a raised plate,
-     this is a tint of the paper. */
-  --band: 32 55% 87%; /* #F0DFCC — PANTONE 11-0907 TCX, exactly */
+     Bands are FLAT in the app now: toolbar, legend and crisis strips share
+     --background and are separated by a border-t alone. The token survives
+     only as a paper-coloured FILL for small things — disabled cells, inline
+     code. Here that is the header rails on panels and screenshot frames, and
+     .prose code. It must not come back as a full-bleed section tint. */
+  --band: 33 40% 88%; /* #EDE2D4 — muted-foreground 4.66:1, foreground 11.58:1 */
 
-  --danger: 353 60% 43%; /* #AF2C3B — 4.97:1 on --band, the thinnest in the set */
+  --danger: 4 60% 38%; /* #9B2F27 — 6.68:1 on --background, 7.01:1 on --surface */
 
-  /* Reserved for crisis-helpline surfaces. Nothing else may use it.
-     --crisis matches the app; the two -surface/-border tokens are this
-     site's own, for the crisis card, and were re-measured against the new
-     palette rather than assumed: --crisis is 6.53:1 on --crisis-surface and
-     --foreground 13.34:1. */
-  --crisis: 0 85% 36%; /* #AA0E0E */
-  --crisis-surface: 0 60% 95%; /* #FAEBEB */
-  --crisis-border: 0 55% 82%; /* #EAB8B8 */
+  /* Reserved for crisis-helpline surfaces. Nothing else may use it, and it is
+     never decorative. --crisis matches the app; the two -surface/-border
+     tokens are this site's own, for the crisis card, and have no counterpart
+     in the app to copy. They were rotated from hue 0 to the new --crisis hue
+     338 so the card and its heading stay one family, holding their previous
+     lightness and their previous relationship to the sheet (1.03:1, was
+     1.04:1). Re-measured, not assumed: --crisis is 8.70:1 on --crisis-surface
+     and --foreground 12.95:1. */
+  --crisis: 338 63% 30%; /* #7D1C40 — 8.94:1 on --background */
+  --crisis-surface: 338 45% 95%; /* #F8EDF1 */
+  --crisis-border: 338 45% 82%; /* #E6BCCC — 1.48:1 on --crisis-surface */
 
   --radius: 1rem;
 
@@ -110,16 +119,21 @@
    mode — navy, not a dark version of the warm linen — to echo sunrise
    (warm/day) against moonrise (cool/night).
 
-   The accent no longer flips hue family here: light plum and dark lavender
-   are the same colour at opposite ends of the range, the way --danger
-   already was. --accent-text is the same value as --accent in this theme
-   (the lavender is already 6.87:1 on --background, so accent-as-type needs
-   no darker twin); it is declared anyway so the token resolves in both.
+   Unchanged by the light rework — verified value for value against the
+   Cotton Letterpress export, not assumed. The accent is one colour with a
+   light and a dark form: claret in light, lavender here. --accent-text is
+   the same value as --accent in this theme (the lavender is already 6.87:1
+   on --background, so accent-as-type needs no darker twin); it is declared
+   anyway so the token resolves in both.
 
    The two site-only tokens are --on-accent and the crisis card's
-   -surface/-border pair. --on-accent stays --background: on lavender that
-   measures 6.87:1, and it is the one token that has to point the opposite
-   way in each theme.
+   -surface/-border pair. --on-accent stays --background here: 6.87:1 on the
+   lavender. It is the one token that points the opposite way in each theme —
+   white on the light claret, near-black on the dark lavender.
+
+   The crisis card's pair is NOT symmetrical with light any more: light was
+   rotated to hue 338 to follow the app's new --crisis, dark keeps hue 0
+   because dark --crisis never moved.
 
    THE TWO BLOCKS BELOW ARE THE SAME LIST TWICE, and have to stay in step —
    one covers "the OS says dark and nothing overrode it", the other "the
@@ -132,8 +146,8 @@
   :root:not([data-theme="light"]) {
     --background: 228 24% 12%; /* #171A26 */
     --surface: 227 18% 16%; /* #212530 */
-    --border: 227 16% 22%; /* #2E3240 */
-    --border-strong: 225 14% 27%; /* #3B404F */
+    --border: 227 16% 22%; /* #2F3341 */
+    --border-strong: 225 14% 27%; /* #3B404E */
     --foreground: 230 20% 94%; /* #EDEEF3 — 14.95:1 on --background */
     --muted-foreground: 230 11% 61%; /* #9194A6 — 5.77:1 on --background */
     --accent-surface: 227 18% 16%; /* #212530 — same as --surface, as in light */
@@ -152,8 +166,8 @@
 :root[data-theme="dark"] {
   --background: 228 24% 12%; /* #171A26 */
   --surface: 227 18% 16%; /* #212530 */
-  --border: 227 16% 22%; /* #2E3240 */
-  --border-strong: 225 14% 27%; /* #3B404F */
+  --border: 227 16% 22%; /* #2F3341 */
+  --border-strong: 225 14% 27%; /* #3B404E */
   --foreground: 230 20% 94%; /* #EDEEF3 — 14.95:1 on --background */
   --muted-foreground: 230 11% 61%; /* #9194A6 — 5.77:1 on --background */
   --accent-surface: 227 18% 16%; /* #212530 — same as --surface, as in light */
@@ -356,10 +370,14 @@
     color: hsl(var(--muted-foreground));
   }
 
+  /* --band, not --accent-surface. Inline code is exactly the "small
+     paper-coloured fill" the band token was kept for once the app stopped
+     painting strips with it; --accent-surface is now a real accent wash and
+     would tint every code span pink. */
   .prose code {
     font-family: var(--font-humeur-mono);
     font-size: 0.875em;
-    background: hsl(var(--accent-surface));
+    background: hsl(var(--band));
     border-radius: 0.25rem;
     padding: 0.125rem 0.3125rem;
   }

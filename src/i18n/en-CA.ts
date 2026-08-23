@@ -27,6 +27,10 @@ export default {
     title: "Humeur — One day is a data point. Ninety days are a pattern.",
     description:
       "A mood journal that tracks the morning and the evening separately, in four views, with a printable summary for your doctor. Encrypted on your device. Free with no account.",
+    /** Describes the share card at public/og.png, for anyone whose reader
+     *  announces it. Not "share image" — say what is on it. */
+    ogImageAlt:
+      "Humeur, now in alpha: a mood journal quick enough to keep up with. Beside the wordmark, a year of mood squares in green, pink and yellow.",
   },
 
   nav: {
@@ -204,8 +208,6 @@ export default {
         key: "Capability",
         sub: "What it does",
         body: "Your entries are encrypted on your device before they're sent anywhere. What reaches the server is illegible — not by policy, but because the decryption key never leaves your device.",
-        aside:
-          "Open your browser's network tab and watch an entry save if you'd like to see for yourself.",
       },
       {
         key: "Getting back in",
@@ -250,15 +252,11 @@ export default {
   providers: {
     section: "Providers",
     heading: "And if you don't have a provider yet.",
-    lead: "Search by city or postal code: psychologists, psychiatrists, psychotherapists, counsellors, therapists, clinics, hospitals and addiction support. Filter by the kind of help you're after and by distance, from 5 km out to 125.",
+    lead: "Search by city or postal code. Filter by the kind of help you need and by distance, from 5 km out to 125.",
     panelLabel: "Provider search",
     panelMeta: "Example search",
-    // Reproduced from the foot of the dialog rather than paraphrased. It is
-    // the honest limit on the feature and belongs next to the claim.
     caption:
-      "Listings come from OpenStreetMap. Availability and details aren't verified — confirm with the provider before you go.",
-    close:
-      "Tracking, a pattern, someone to show it to, and a page to hand them",
+      "Listings are from OpenStreetMap. Availability and details aren't verified — confirm with the provider before you go.",
   },
 
   languages: {
