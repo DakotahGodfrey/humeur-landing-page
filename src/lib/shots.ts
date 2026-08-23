@@ -27,23 +27,31 @@ import weekLight from "@/assets/shots/week-light-spring.png"
 import yearDark from "@/assets/shots/year-dark-spring.png"
 import yearLight from "@/assets/shots/year-light-spring.png"
 
+import providerDark from "@/assets/shots/provider-dark-spring.png"
+import providerLight from "@/assets/shots/provider-light-spring.png"
+
 import mobileDayLight from "@/assets/shots/mobile-day-light-spring.png"
 import mobileMonthDark from "@/assets/shots/mobile-month-dark-spring.png"
+import mobileProviderLight from "@/assets/shots/mobile-provider-light-spring.png"
 import mobileYearLight from "@/assets/shots/mobile-year-light-spring.png"
 
 /**
- * Only `year` and `month` have both themes captured. The rest render light in
- * both modes — see the note in Shot.astro on why they aren't filtered to
- * match. Capturing dark for `day`, `week` and `crisis` is the open item.
+ * `provider` is the only view captured on all three axes — light, dark and
+ * phone — so it's the one that exercises Shot.astro completely. `year` and
+ * `month` have both themes. The rest render light in both modes; see the note
+ * in Shot.astro on why they aren't filtered to match. Capturing dark for
+ * `day`, `week` and `crisis` is the open item.
  */
 export const shots = {
   year: { light: yearLight, dark: yearDark },
   month: { light: monthLight, dark: monthDark },
+  provider: { light: providerLight, dark: providerDark },
   week: { light: weekLight },
   day: { light: dayLight },
   crisis: { light: crisisLight },
 
   mobileDay: { light: mobileDayLight },
   mobileMonth: { light: mobileMonthDark },
+  mobileProvider: { light: mobileProviderLight },
   mobileYear: { light: mobileYearLight },
 } as const

@@ -1,7 +1,23 @@
 ---
 import Section from "../Section.astro"
-import Panel from "../Panel.astro"
+import Shot from "../Shot.astro"
+import { shots } from "@/lib/shots"
 import { useTranslations } from "@/i18n"
+
+/**
+ * Completes the loop: track → see the pattern → find someone → hand them the
+ * summary. The last section before crisis and pricing that is about the
+ * product doing something for you rather than about what it won't do.
+ *
+ * This was the last hand-built mockup on the page — a Panel with filter chips
+ * and result rows assembled from the dictionary. It had drifted: six provider
+ * types where the app has eight, and a set of invented clinic names. The
+ * capture replaces all of it, and the chips and results that only existed to
+ * feed that mockup are gone from the dictionary with it.
+ *
+ * The only view captured light, dark *and* phone, so it's the one place all
+ * three of Shot's axes are exercised at once.
+ */
 
 const t = useTranslations()
 ---
@@ -12,41 +28,19 @@ const t = useTranslations()
   >
     {t.providers.heading}
   </h2>
-  <p class="max-w-[40rem] text-[17px] text-muted-foreground">{t.providers.lead}</p>
+  <p class="max-w-[42rem] text-[17px] text-muted-foreground">{t.providers.lead}</p>
 
-  <Panel label={t.providers.panelLabel} meta={t.providers.resultCount} flush class="mt-7">
-    <ul class="flex flex-wrap gap-1.5 border-b border-border p-3.5" aria-label={t.providers.filtersLabel}>
-      {
-        t.providers.filters.map((f) => (
-          <li
-            class:list={[
-              "rounded-md border px-2.5 py-[5px] font-mono text-[10px] tracking-[0.08em] whitespace-nowrap uppercase",
-              f.on
-                ? "border-foreground/40 bg-accent-surface font-medium text-foreground"
-                : "border-border-strong text-muted-foreground",
-            ]}
-          >
-            {f.label}
-          </li>
-        ))
-      }
-    </ul>
-    <ul aria-label={t.providers.resultsLabel}>
-      {
-        t.providers.results.map((r) => (
-          <li class="grid grid-cols-[3.5rem_1fr] items-baseline gap-3.5 border-b border-border px-3.5 py-3 last:border-b-0">
-            <span class="font-mono text-[11px] text-muted-foreground">{r.distance}</span>
-            <span>
-              <span class="block text-sm font-semibold">{r.name}</span>
-              <span class="mt-0.5 block font-mono text-[10px] tracking-[0.06em] text-muted-foreground uppercase">
-                {r.type}
-              </span>
-            </span>
-          </li>
-        ))
-      }
-    </ul>
-  </Panel>
+  <Shot
+    class="mt-8"
+    light={shots.provider.light}
+    dark={shots.provider.dark}
+    mobile={shots.mobileProvider.light}
+    alt={t.shots.provider}
+    label={t.providers.panelLabel}
+    meta={t.providers.panelMeta}
+  >
+    {t.providers.caption}
+  </Shot>
 
-  <p class="mt-5 max-w-[40rem] text-[17px] text-muted-foreground">{t.providers.close}</p>
+  <p class="mt-6 max-w-[40rem] text-[17px] text-muted-foreground">{t.providers.close}</p>
 </Section>

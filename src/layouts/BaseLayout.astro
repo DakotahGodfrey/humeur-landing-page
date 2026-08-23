@@ -17,6 +17,13 @@ const t = useTranslations(locale)
 const pageTitle = title ?? t.meta.title
 const pageDescription = description ?? t.meta.description
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://humeur.dev")
+
+/* The share card. It lives in public/ rather than src/assets on purpose:
+   crawlers need one stable, unhashed, absolute URL, and the build's image
+   pipeline would give it a content hash and a webp sibling that Slack and
+   iMessage don't reliably render. Absolute because every scraper resolves
+   og:image against nothing. Recapture it with the rest of the promo set. */
+const ogImage = new URL("/og.png", Astro.site ?? "https://humeur.dev")
 ---
 
 <!doctype html>
@@ -35,7 +42,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://humeur.dev"
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1350" />
+    <meta property="og:image:alt" content={t.meta.ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     {/* .ico first, SVG second: a browser that understands the SVG takes it
         regardless of order, and one that doesn't never reads past the .ico.
@@ -48,7 +60,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://humeur.dev"
 
     {/* Paints the browser chrome to match --background in each theme, so the
         address bar doesn't sit as a white bar above the warm sheet. */}
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4E6D7" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8F2E8" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171A26" />
 
     {/* Self-hosted and preloaded, so there's no third-party request before
