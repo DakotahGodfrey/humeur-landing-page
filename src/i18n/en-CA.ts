@@ -257,6 +257,7 @@ export default {
     panelMeta: "Example search",
     caption:
       "Listings are from OpenStreetMap. Availability and details aren't verified — confirm with the provider before you go.",
+    close: "",
   },
 
   languages: {
