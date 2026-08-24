@@ -3,11 +3,11 @@ import { Image } from "astro:assets"
 import Section from "../Section.astro"
 import Shot from "../Shot.astro"
 import { shots } from "@/lib/shots"
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
 
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 
 const phones = [
   { src: shots.mobileMonth.light, alt: t.shots.mobile, hidden: undefined },

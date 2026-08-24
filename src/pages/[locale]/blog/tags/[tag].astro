@@ -1,0 +1,27 @@
+---
+import TagPage from "@/components/blog/TagPage.astro"
+import { postsByTag, tagsInUse } from "@/lib/posts"
+import { localeSegment, prefixedLocales } from "@/i18n"
+import type { GetStaticPaths } from "astro"
+
+/* As src/pages/blog/tags/[tag].astro, once per prefixed locale. A tag with no
+   posts in a locale gets no route there either. */
+export const getStaticPaths = (async () => {
+  const paths = await Promise.all(
+    prefixedLocales.map(async (locale) => {
+      const tags = await tagsInUse(locale)
+      return Promise.all(
+        tags.map(async (tag) => ({
+          params: { locale: localeSegment(locale), tag },
+          props: { tag, posts: await postsByTag(tag, locale) },
+        })),
+      )
+    }),
+  )
+  return paths.flat()
+}) satisfies GetStaticPaths
+
+const { tag, posts } = Astro.props
+---
+
+<TagPage tag={tag} posts={posts} />

@@ -1,9 +1,9 @@
 ---
 import Button from "../Button.astro"
 import { links } from "@/lib/site"
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 ---
 
 <section class="py-16 text-center">

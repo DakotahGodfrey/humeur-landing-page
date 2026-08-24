@@ -1,8 +1,8 @@
 ---
 import Section from "../Section.astro"
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 ---
 
 <Section id="languages" index="08" label={t.languages.section}>

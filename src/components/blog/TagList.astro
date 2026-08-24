@@ -1,5 +1,6 @@
 ---
 import { tagLabel, type TagKey } from "@/lib/tags"
+import { localePath, resolveLocale, useTranslations } from "@/i18n"
 
 interface Props {
   tags: readonly TagKey[]
@@ -10,6 +11,9 @@ interface Props {
 }
 
 const { tags, linked = true, current, class: className = "" } = Astro.props
+
+const locale = resolveLocale(Astro.currentLocale)
+const t = useTranslations(locale)
 
 const base =
   "rounded-md border px-2 py-[5px] font-mono text-[10px] tracking-[0.08em] uppercase no-underline"
@@ -25,11 +29,14 @@ const base =
       return (
         <li>
           {linked ? (
-            <a href={`/blog/tags/${tag}/`} class:list={[base, styles, "hover:text-foreground"]}>
-              {tagLabel(tag)}
+            <a
+              href={localePath(`/blog/tags/${tag}/`, locale)}
+              class:list={[base, styles, "hover:text-foreground"]}
+            >
+              {tagLabel(tag, t)}
             </a>
           ) : (
-            <span class:list={[base, styles]}>{tagLabel(tag)}</span>
+            <span class:list={[base, styles]}>{tagLabel(tag, t)}</span>
           )}
         </li>
       )

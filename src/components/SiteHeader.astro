@@ -1,16 +1,23 @@
 ---
 import Button from "./Button.astro"
 import ThemeToggle from "./ThemeToggle.astro"
-import { useTranslations } from "@/i18n"
+import LocaleSwitcher from "./LocaleSwitcher.astro"
+import { localePath, resolveLocale, useTranslations } from "@/i18n"
 import { links } from "@/lib/site"
 
-const t = useTranslations()
+const locale = resolveLocale(Astro.currentLocale)
+const t = useTranslations(locale)
+
+/* The wordmark points at this locale's home, not at links.home. That constant
+   is the absolute origin, which is right for the app and wrong here: from
+   /fr-ca/blog/ it would send a French reader to the English landing page. */
+const home = localePath("/", locale)
 ---
 
 <header class="sticky top-0 z-20 border-b border-border-strong bg-background">
   <div class="mx-auto flex min-h-14 w-full max-w-[78rem] items-center gap-4 px-4 sm:px-8">
     <a
-      href={links.home}
+      href={home}
       class="flex items-center gap-2.5 font-display text-lg font-semibold tracking-[-0.01em] no-underline"
     >
       {/* The brand mark: a split day, Great in the morning and Bad in the
@@ -36,7 +43,7 @@ const t = useTranslations()
     >
       {
         t.nav.items.map((item) => (
-          <a href={item.href} class="text-muted-foreground no-underline hover:text-foreground">
+          <a href={localePath(item.href, locale)} class="text-muted-foreground no-underline hover:text-foreground">
             {item.label}
           </a>
         ))
@@ -44,6 +51,7 @@ const t = useTranslations()
     </nav>
 
     <div class="ml-auto flex items-center gap-2">
+      <LocaleSwitcher />
       <ThemeToggle />
       <Button href={links.app} size="sm">{t.nav.start}</Button>
     </div>

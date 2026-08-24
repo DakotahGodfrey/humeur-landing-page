@@ -1,7 +1,7 @@
 ---
 import Section from "../Section.astro"
 import Panel from "../Panel.astro"
-import { useTranslations } from "@/i18n"
+import { fill, resolveLocale, useTranslations } from "@/i18n"
 
 /**
  * The structured fields.
@@ -18,7 +18,7 @@ import { useTranslations } from "@/i18n"
  * there is no engine. Finding that out later is worse than reading it here.
  */
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 ---
 
 <Section id="entry" index="03" label={t.entry.section}>
@@ -38,7 +38,7 @@ const t = useTranslations()
       <p class="mt-6 max-w-[40rem] leading-[1.65] text-muted-foreground">{t.entry.private}</p>
     </div>
 
-    <Panel label={t.entry.fieldsLabel} meta={`${t.entry.fields.length} fields`} flush>
+    <Panel label={t.entry.fieldsLabel} meta={fill(t.entry.fieldsCount, { count: t.entry.fields.length })} flush>
       <dl>
         {
           t.entry.fields.map((field) => (

@@ -4,7 +4,7 @@ import TagList from "@/components/blog/TagList.astro"
 import Button from "@/components/Button.astro"
 import { formatPostDate, isoDate, type Post } from "@/lib/posts"
 import { links } from "@/lib/site"
-import { useTranslations } from "@/i18n"
+import { localePath, resolveLocale, useTranslations } from "@/i18n"
 import type { TagKey } from "@/lib/tags"
 
 /**
@@ -22,14 +22,15 @@ interface Props {
 }
 
 const { post } = Astro.props
-const { title, description, pubDate, updatedDate, tags, draft } = post.data
-const t = useTranslations()
+const { title, description, pubDate, updatedDate, tags, draft, fallback } = post.data
+const locale = resolveLocale(Astro.currentLocale)
+const t = useTranslations(locale)
 ---
 
 <BaseLayout title={`${title} — Humeur`} description={description}>
   <article class="mx-auto w-full max-w-[46rem] px-4 py-12 sm:px-8 sm:py-16">
     <a
-      href="/blog/"
+      href={localePath("/blog/", locale)}
       class="mb-8 inline-block font-mono text-[10px] tracking-[0.15em] text-muted-foreground uppercase no-underline hover:text-foreground"
     >
       ← {t.blog.backToBlog}
@@ -54,13 +55,13 @@ const t = useTranslations()
 
       <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
         <p class="font-mono text-[11px] tracking-[0.06em] text-muted-foreground">
-          <time datetime={isoDate(pubDate)}>{formatPostDate(pubDate)}</time>
+          <time datetime={isoDate(pubDate)}>{formatPostDate(pubDate, t)}</time>
           {
             updatedDate && (
               <>
                 {" · "}
                 {t.blog.updated}{" "}
-                <time datetime={isoDate(updatedDate)}>{formatPostDate(updatedDate)}</time>
+                <time datetime={isoDate(updatedDate)}>{formatPostDate(updatedDate, t)}</time>
               </>
             )
           }
@@ -68,6 +69,17 @@ const t = useTranslations()
         <TagList tags={tags as readonly TagKey[]} />
       </div>
     </header>
+
+    {/* Said above the body, not after it. Someone who reads French and lands
+        on an English post should find that out before the first paragraph,
+        not at the foot of the page. */}
+    {
+      fallback && (
+        <p class="mt-7 rounded-[10px] border border-border-strong bg-surface px-4 py-3 text-sm text-muted-foreground">
+          {t.blog.notTranslated}
+        </p>
+      )
+    }
 
     <div class="prose mt-9">
       <slot />

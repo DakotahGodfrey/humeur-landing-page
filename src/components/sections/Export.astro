@@ -1,7 +1,7 @@
 ---
 import Section from "../Section.astro"
 import ExportSheet from "../ExportSheet.astro"
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
 /**
  * Export is the differentiator, so it leads with the artifact rather than the
@@ -10,7 +10,7 @@ import { useTranslations } from "@/i18n"
  * has to be as easy to leave with as it was to build.
  */
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 ---
 
 <Section id="export" index="05" label={t.exportSection.section}>

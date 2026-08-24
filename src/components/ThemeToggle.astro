@@ -1,7 +1,7 @@
 ---
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 ---
 
 <button

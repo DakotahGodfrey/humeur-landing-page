@@ -2,12 +2,16 @@
 import { render } from "astro:content"
 import PostLayout from "@/layouts/PostLayout.astro"
 import { publishedPosts } from "@/lib/posts"
+import { defaultLocale } from "@/i18n"
 import type { GetStaticPaths } from "astro"
 
+/* The default locale's posts, unprefixed. `post.data.slug` rather than
+   `post.id`: the entry id is `<locale>/<slug>` now, because the collection
+   holds every translation and a content-layer store is a flat map. */
 export const getStaticPaths = (async () => {
-  const posts = await publishedPosts()
+  const posts = await publishedPosts(defaultLocale)
   return posts.map((post) => ({
-    params: { slug: post.id },
+    params: { slug: post.data.slug },
     props: { post },
   }))
 }) satisfies GetStaticPaths

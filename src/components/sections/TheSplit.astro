@@ -2,7 +2,7 @@
 import Section from "../Section.astro"
 import Shot from "../Shot.astro"
 import { shots } from "@/lib/shots"
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
 /**
  * The wedge. One sentence about what other trackers get wrong, one about what
@@ -15,7 +15,7 @@ import { useTranslations } from "@/i18n"
  * this one stays on the split and lets them sit in the background.
  */
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 ---
 
 <Section id="split" index="02" label={t.split.section}>

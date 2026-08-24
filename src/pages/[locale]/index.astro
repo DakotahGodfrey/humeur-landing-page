@@ -1,0 +1,22 @@
+---
+import LandingPage from "@/components/LandingPage.astro"
+import { localeSegment, prefixedLocales } from "@/i18n"
+import type { GetStaticPaths } from "astro"
+
+/**
+ * The landing page for every locale that carries a URL prefix.
+ *
+ * Generated from `prefixedLocales` rather than written per language, so
+ * shipping es-MX is adding a tag and a dictionary and nothing else. en-CA is
+ * absent by construction: it serves from `/` via src/pages/index.astro.
+ *
+ * The param is lowercase (`fr-ca`) because that is what belongs in a URL; the
+ * tag is `fr-CA`, and `Astro.currentLocale` resolves one to the other.
+ */
+export const getStaticPaths = (() =>
+  prefixedLocales.map((locale) => ({
+    params: { locale: localeSegment(locale) },
+  }))) satisfies GetStaticPaths
+---
+
+<LandingPage />

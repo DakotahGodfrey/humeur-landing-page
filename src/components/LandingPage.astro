@@ -1,0 +1,43 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import Hero from "@/components/sections/Hero.astro"
+import HowItWorks from "@/components/sections/HowItWorks.astro"
+import TheSplit from "@/components/sections/TheSplit.astro"
+import Entry from "@/components/sections/Entry.astro"
+import Patterns from "@/components/sections/Patterns.astro"
+import Export from "@/components/sections/Export.astro"
+import Privacy from "@/components/sections/Privacy.astro"
+import Providers from "@/components/sections/Providers.astro"
+import Languages from "@/components/sections/Languages.astro"
+import Pricing from "@/components/sections/Pricing.astro"
+import Crisis from "@/components/sections/Crisis.astro"
+import FinalCta from "@/components/sections/FinalCta.astro"
+
+/**
+ * The landing page itself, so the route files don't hold the composition.
+ *
+ * There are two routes into this: `/` for en-CA, which is unprefixed, and
+ * `/[locale]/` for everything else. Keeping the section order in one file is
+ * what stops the two from drifting — a section added to one and not the other
+ * is a page that exists in English and not in French, which is exactly the
+ * failure the dictionary structure is built to prevent.
+ *
+ * Every section reads its own copy from `Astro.currentLocale`, so nothing has
+ * to be threaded through here.
+ */
+---
+
+<BaseLayout>
+  <Hero />
+  <HowItWorks />
+  <TheSplit />
+  <Entry />
+  <Patterns />
+  <Export />
+  <Privacy />
+  <Providers />
+  <Languages />
+  <Pricing />
+  <Crisis />
+  <FinalCta />
+</BaseLayout>

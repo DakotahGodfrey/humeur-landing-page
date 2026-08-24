@@ -1,5 +1,7 @@
 import { addDays, eachDay, entryFor, isSplit, type DayEntry } from "./history"
-import { MOOD_SCALE, nearestLabel } from "./moodScale"
+import { MOOD_SCALE, nearestMood, type MoodSlug } from "./moodScale"
+import { fill } from "@/i18n"
+import type { Dictionary } from "@/i18n/dictionary"
 
 /**
  * Calendar construction and the summary figures.
@@ -12,16 +14,10 @@ import { MOOD_SCALE, nearestLabel } from "./moodScale"
  * means "nothing recorded", and a gap is information.
  */
 
-export const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-] as const
-
-export const WEEKDAYS_SHORT = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"] as const
-export const WEEKDAYS_PRINT = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"] as const
-export const WEEKDAY_LONG = [
-  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
-] as const
+/* Month and weekday names used to live here. They are words, so they moved
+   to the `calendar` block of each dictionary in src/i18n — read them off `t`.
+   Everything below that produces a human-readable string takes the dictionary
+   for the same reason. */
 
 export interface CalendarDay {
   date: Date | null
@@ -63,12 +59,14 @@ export interface RangeStats {
   notLogged: number
   percentLogged: number
   average: number
-  averageLabel: string
+  /** Slugs, not labels: the figures are locale-independent and the words are
+   *  looked up at the point of display. */
+  averageSlug: MoodSlug
   entries: number
   splits: number
-  mix: { label: string; cssVar: string; count: number }[]
-  lowest: string
-  highest: string
+  mix: { slug: MoodSlug; cssVar: string; count: number }[]
+  lowest: MoodSlug
+  highest: MoodSlug
   admissions: { from: Date; to: Date; days: number }[]
 }
 
@@ -101,16 +99,16 @@ export function rangeStats(from: Date, to: Date): RangeStats {
     notLogged: days.length - logged,
     percentLogged: Math.round((100 * logged) / days.length),
     average,
-    averageLabel: nearestLabel(average),
+    averageSlug: nearestMood(average).slug,
     entries: scores.length,
     splits,
     mix: MOOD_SCALE.filter((m) => counts.has(m.score)).map((m) => ({
-      label: m.label,
+      slug: m.slug,
       cssVar: m.cssVar,
       count: counts.get(m.score)!,
     })),
-    lowest: labelFor(Math.min(...scores)),
-    highest: labelFor(Math.max(...scores)),
+    lowest: slugFor(Math.min(...scores)),
+    highest: slugFor(Math.max(...scores)),
     admissions: admissionRuns(days),
   }
 }
@@ -130,8 +128,8 @@ function admissionRuns(days: Date[]) {
   return runs
 }
 
-function labelFor(score: number): string {
-  return MOOD_SCALE.find((m) => m.score === score)!.label
+function slugFor(score: number): MoodSlug {
+  return MOOD_SCALE.find((m) => m.score === score)!.slug
 }
 
 function round1(n: number): number {
@@ -140,51 +138,85 @@ function round1(n: number): number {
 
 /* ── Formatting ─────────────────────────────────────────────────────────── */
 
-const WEEKDAY_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const
+/** The day of the month as the language writes it. French takes an ordinal on
+ *  the first and a bare numeral on every other day; English takes a bare
+ *  numeral throughout, and says so with an empty `firstOfMonth`. */
+function dayNumeral(d: Date, t: Dictionary): string {
+  const day = d.getUTCDate()
+  return day === 1 && t.calendar.firstOfMonth ? t.calendar.firstOfMonth : String(day)
+}
 
 /**
  * "Fri 1 May 2026" — the exact shape the export header uses.
  *
- * Built by hand rather than through toLocaleDateString, which renders this
- * as "Fri, May 1, 2026" under en-CA. The printed summary has no commas and
- * puts the day before the month, and this string appears on the page next to
- * a picture of that summary, so the two have to agree.
+ * Built from the dictionary rather than through toLocaleDateString, which
+ * renders this as "Fri, May 1, 2026" under en-CA. The printed summary has no
+ * commas and puts the day before the month, and this string appears on the
+ * page next to a picture of that summary, so the two have to agree.
+ *
+ * The order lives in the dictionary too, as a `{weekday} {day} {month} {year}`
+ * template, because a language that orders a date differently should be able
+ * to say so without a code change.
  */
-export function formatLong(d: Date): string {
-  const wd = WEEKDAY_SHORT[d.getUTCDay()]
-  const mon = MONTH_NAMES[d.getUTCMonth()].slice(0, 3)
-  return `${wd} ${d.getUTCDate()} ${mon} ${d.getUTCFullYear()}`
+export function formatLong(d: Date, t: Dictionary): string {
+  return fill(t.calendar.dateLong, {
+    weekday: t.calendar.weekdaysShort[d.getUTCDay()],
+    day: dayNumeral(d, t),
+    month: t.calendar.monthsShort[d.getUTCMonth()],
+    year: d.getUTCFullYear(),
+  })
 }
 
 /** "1 May 2026" — same, without the weekday. */
-export function formatShort(d: Date): string {
-  return `${d.getUTCDate()} ${MONTH_NAMES[d.getUTCMonth()].slice(0, 3)} ${d.getUTCFullYear()}`
+export function formatShort(d: Date, t: Dictionary): string {
+  return fill(t.calendar.dateShort, {
+    day: dayNumeral(d, t),
+    month: t.calendar.monthsShort[d.getUTCMonth()],
+    year: d.getUTCFullYear(),
+  })
 }
 
-/** "29 June 2026" — for accessible names and the day-view header. Built by
- *  hand for the same reason as formatLong: en-CA renders this "June 29, 2026",
- *  and day-before-month is what the rest of the interface uses. */
-export function formatSpoken(d: Date): string {
-  return `${d.getUTCDate()} ${MONTH_NAMES[d.getUTCMonth()]} ${d.getUTCFullYear()}`
+/** "29 June 2026" — for accessible names and the day-view header. Full month
+ *  name rather than the abbreviation, because this one gets read aloud. */
+export function formatSpoken(d: Date, t: Dictionary): string {
+  return fill(t.calendar.dateSpoken, {
+    day: dayNumeral(d, t),
+    month: t.calendar.months[d.getUTCMonth()],
+    year: d.getUTCFullYear(),
+  })
 }
 
 /** The text equivalent for a calendar cell. Decorative swatches are hidden
  *  from assistive tech; anything carrying meaning gets one of these. */
-export function describeDay(date: Date, entry: DayEntry | null): string {
-  const when = formatSpoken(date)
-  const admission = entry?.admission ? ", hospital admission" : ""
-  if (!entry?.am) return `${when}, no entry${admission}`
-  if (!isSplit(entry)) return `${when}, ${entry.am.label} all day${admission}`
-  return `${when}, ${entry.am.label} in the morning, ${entry.pm!.label} in the evening${admission}`
+export function describeDay(date: Date, entry: DayEntry | null, t: Dictionary): string {
+  const when = formatSpoken(date, t)
+  const admission = entry?.admission ? t.calendar.dayAdmission : ""
+  if (!entry?.am) return fill(t.calendar.dayNoEntry, { date: when }) + admission
+  if (!isSplit(entry)) {
+    return fill(t.calendar.dayAllDay, { date: when, mood: t.moods[entry.am.slug] }) + admission
+  }
+  return (
+    fill(t.calendar.daySplit, {
+      date: when,
+      am: t.moods[entry.am.slug],
+      pm: t.moods[entry.pm!.slug],
+    }) + admission
+  )
 }
 
 /** A one-line summary of a month grid, so the grid can be a single labelled
  *  image rather than thirty-odd unreadable cells. */
-export function describeMonth(year: number, month: number): string {
+export function describeMonth(year: number, month: number, t: Dictionary): string {
   const cells = monthCells(year, month).filter((c) => c.date)
   const logged = cells.filter((c) => c.entry?.am).length
   const splits = cells.filter((c) => isSplit(c.entry)).length
   const admissions = cells.filter((c) => c.entry?.admission).length
-  const base = `${MONTH_NAMES[month - 1]} ${year}: ${logged} of ${cells.length} days logged, ${splits} split between morning and evening`
-  return admissions ? `${base}, ${admissions} days marked as a hospital admission` : base
+  const base = fill(t.calendar.monthSummary, {
+    month: t.calendar.months[month - 1],
+    year,
+    logged,
+    total: cells.length,
+    splits,
+  })
+  return admissions ? base + fill(t.calendar.monthSummaryAdmissions, { admissions }) : base
 }

@@ -3,6 +3,7 @@ import { defineCollection } from "astro:content"
 // the exact zod build Astro validates with, so schemas can't drift from it.
 import { z } from "astro/zod"
 import { TAG_KEYS } from "./lib/tags"
+import { locales } from "./i18n"
 import { notionPosts } from "./lib/notion/loader"
 
 /**
@@ -59,6 +60,24 @@ const posts = defineCollection({
       tags: z.array(z.enum(TAG_KEYS)).min(1).max(3),
       /** Drafts are excluded from the index, the tag pages and the routes. */
       draft: z.boolean().default(false),
+
+      /**
+       * Which locale this row is for.
+       *
+       * The collection holds every locale at once and the entry `id` is
+       * `<locale>/<slug>`, because a content-layer store is a flat map and two
+       * translations of one post share a slug. Routes filter on this field.
+       */
+      locale: z.enum(locales),
+      /** The URL segment, without the locale prefix the entry id carries. */
+      slug: z.string().min(1),
+      /**
+       * True when this row is the en-CA original standing in for a
+       * translation that doesn't exist yet. The post still renders — a French
+       * notes section with nothing in it is worse than one that says which
+       * pieces aren't translated — and the page says so above the body.
+       */
+      fallback: z.boolean().default(false),
     })
     .refine((data) => !data.updatedDate || data.updatedDate >= data.pubDate, {
       message: "updatedDate cannot be before pubDate",

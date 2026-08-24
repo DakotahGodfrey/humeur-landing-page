@@ -3,7 +3,7 @@ import Button from "../Button.astro"
 import Shot from "../Shot.astro"
 import { shots } from "@/lib/shots"
 import { links } from "@/lib/site"
-import { useTranslations } from "@/i18n"
+import { localePath, resolveLocale, useTranslations } from "@/i18n"
 
 /**
  * The headline argues that a pattern needs time, so the hero shows the view
@@ -16,7 +16,8 @@ import { useTranslations } from "@/i18n"
  * than no numbers at all. The capture carries its own, and they're real.
  */
 
-const t = useTranslations()
+const locale = resolveLocale(Astro.currentLocale)
+const t = useTranslations(locale)
 ---
 
 <section class="py-11 lg:py-14">
@@ -35,7 +36,7 @@ const t = useTranslations()
       </p>
       <div class="mb-3.5 flex flex-wrap gap-2.5">
         <Button href={links.app} size="lg">{t.hero.primaryCta}</Button>
-        <Button href="/#how" variant="ghost" size="lg">{t.hero.secondaryCta}</Button>
+        <Button href={localePath("/#how", locale)} variant="ghost" size="lg">{t.hero.secondaryCta}</Button>
       </div>
       <p class="max-w-[26rem] text-[13px] text-muted-foreground">{t.hero.note}</p>
     </div>

@@ -1,0 +1,12 @@
+---
+import BlogIndex from "@/components/blog/BlogIndex.astro"
+import { localeSegment, prefixedLocales } from "@/i18n"
+import type { GetStaticPaths } from "astro"
+
+export const getStaticPaths = (() =>
+  prefixedLocales.map((locale) => ({
+    params: { locale: localeSegment(locale) },
+  }))) satisfies GetStaticPaths
+---
+
+<BlogIndex />

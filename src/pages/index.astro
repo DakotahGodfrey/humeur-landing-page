@@ -1,30 +1,8 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro"
-import Hero from "@/components/sections/Hero.astro"
-import HowItWorks from "@/components/sections/HowItWorks.astro"
-import TheSplit from "@/components/sections/TheSplit.astro"
-import Entry from "@/components/sections/Entry.astro"
-import Patterns from "@/components/sections/Patterns.astro"
-import Export from "@/components/sections/Export.astro"
-import Privacy from "@/components/sections/Privacy.astro"
-import Providers from "@/components/sections/Providers.astro"
-import Languages from "@/components/sections/Languages.astro"
-import Pricing from "@/components/sections/Pricing.astro"
-import Crisis from "@/components/sections/Crisis.astro"
-import FinalCta from "@/components/sections/FinalCta.astro"
+import LandingPage from "@/components/LandingPage.astro"
+
+/* en-CA, unprefixed. `prefixDefaultLocale` is false, so the default locale
+   serves from the root and every other locale from src/pages/[locale]/. */
 ---
 
-<BaseLayout>
-  <Hero />
-  <HowItWorks />
-  <TheSplit />
-  <Entry />
-  <Patterns />
-  <Export />
-  <Privacy />
-  <Providers />
-  <Languages />
-  <Pricing />
-  <Crisis />
-  <FinalCta />
-</BaseLayout>
+<LandingPage />

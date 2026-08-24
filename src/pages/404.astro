@@ -1,16 +1,39 @@
 ---
-import Section from "@/components/Section.astro";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Section.astro"
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import { localePath, resolveLocale, useTranslations } from "@/i18n"
 
-// src/pages/404.astro
+/**
+ * One 404 for the whole site, in the default locale.
+ *
+ * The host serves a static /404.html for any unmatched path and cannot know
+ * which language the reader wanted, so there is no honest way to localize
+ * this from a static build. `Astro.currentLocale` is still read rather than
+ * hardcoded: if this ever moves to a server render it becomes correct on its
+ * own, and the header and footer around it already follow the URL.
+ */
+
+const locale = resolveLocale(Astro.currentLocale)
+const t = useTranslations(locale)
 ---
 
 <BaseLayout>
-  <Section id="404" label="404 Not Found"  index=""  class="py-11 lg:py-16 ">
-  <div class="flex flex-col items-center justify-center w-full  border border-border py-16 rounded-2xl bg-surface ">
-    <h1 class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance">404 - Page Not Found</h1>
-    <p class="leading-[1.6] text-muted-foreground">Sorry, the page you are looking for doesn't exist.</p>
-    <a href="/" class="font-mono mt-4 text-accent-text underline decoration-2 underline-offset-3">Go back to homepage</a>
-  </div>
-</Section >
+  <Section id="404" label={t.notFound.label} index="" class="py-11 lg:py-16">
+    <div
+      class="flex w-full flex-col items-center justify-center rounded-2xl border border-border bg-surface py-16"
+    >
+      <h1
+        class="mb-4 font-display text-[clamp(1.625rem,4.6vw,2.4375rem)] leading-[1.1] font-medium tracking-[-0.022em] text-balance"
+      >
+        {t.notFound.heading}
+      </h1>
+      <p class="leading-[1.6] text-muted-foreground">{t.notFound.body}</p>
+      <a
+        href={localePath("/", locale)}
+        class="mt-4 font-mono text-accent-text underline decoration-2 underline-offset-3"
+      >
+        {t.notFound.home}
+      </a>
+    </div>
+  </Section>
 </BaseLayout>

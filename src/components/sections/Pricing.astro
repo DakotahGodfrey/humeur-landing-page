@@ -3,7 +3,7 @@ import Section from "../Section.astro"
 import Panel from "../Panel.astro"
 import Button from "../Button.astro"
 import { links } from "@/lib/site"
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
 /**
  * Descriptive tier names, not Free/Pro. "On this device" and "Synced" say
@@ -11,7 +11,7 @@ import { useTranslations } from "@/i18n"
  * lesser product, and here it isn't — it has every feature.
  */
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 const tiers = [
   { ...t.pricing.free, href: links.app, variant: "ghost" as const },
   { ...t.pricing.synced, href: links.app, variant: "primary" as const },

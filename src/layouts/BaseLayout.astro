@@ -2,7 +2,14 @@
 import { Font } from "astro:assets"
 import SiteHeader from "@/components/SiteHeader.astro"
 import SiteFooter from "@/components/SiteFooter.astro"
-import { useTranslations, defaultLocale, type Locale } from "@/i18n"
+import {
+  locales,
+  ogLocale,
+  resolveLocale,
+  switchLocalePath,
+  useTranslations,
+  type Locale,
+} from "@/i18n"
 import "@/styles/global.css"
 
 interface Props {
@@ -11,12 +18,24 @@ interface Props {
   description?: string
 }
 
-const { locale = defaultLocale, title, description } = Astro.props
+/* The prop is an override, not the source. Astro derives the locale from the
+   URL, which is the only thing that stays right when a page is reached by a
+   link somebody else wrote. */
+const { locale = resolveLocale(Astro.currentLocale), title, description } = Astro.props
 const t = useTranslations(locale)
 
 const pageTitle = title ?? t.meta.title
 const pageDescription = description ?? t.meta.description
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://humeur.dev")
+
+/* One alternate per locale, plus x-default pointing at en-CA.
+   Every page lists every locale including its own — that is what the spec
+   asks for, and a set of alternates that doesn't include the page it is on is
+   the most common way this gets ignored by crawlers. */
+const alternates = locales.map((tag) => ({
+  hreflang: tag,
+  href: new URL(switchLocalePath(Astro.url.pathname, tag), Astro.site ?? "https://humeur.dev"),
+}))
 
 /* The share card. It lives in public/ rather than src/assets on purpose:
    crawlers need one stable, unhashed, absolute URL, and the build's image
@@ -38,7 +57,18 @@ const ogImage = new URL("/og.png", Astro.site ?? "https://humeur.dev")
     <link rel="canonical" href={canonical} />
     <meta name="color-scheme" content="light dark" />
 
+    {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+    {/* Where a reader's language matches nothing above. en-CA is the site's
+        default locale and the one that serves from `/`. */}
+    <link rel="alternate" hreflang="x-default" href={new URL(switchLocalePath(Astro.url.pathname, "en-CA"), Astro.site ?? "https://humeur.dev")} />
+
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={ogLocale(locale)} />
+    {
+      locales
+        .filter((tag) => tag !== locale)
+        .map((tag) => <meta property="og:locale:alternate" content={ogLocale(tag)} />)
+    }
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
@@ -51,11 +81,13 @@ const ogImage = new URL("/og.png", Astro.site ?? "https://humeur.dev")
 
     {/* .ico first, SVG second: a browser that understands the SVG takes it
         regardless of order, and one that doesn't never reads past the .ico.
-        Both are the split-day mark from app/logo-1024.png — the .ico is
-        downscaled from that file directly, the SVG traces its outline. */}
+        Both are the split-day mark from app/logo-1024.png — the .ico is a
+        copy of the app's own app/favicon.ico, the SVG traces its outline. */}
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    {/* iOS home-screen bookmarks ignore both of the above. */}
+    {/* iOS home-screen bookmarks ignore both of the above. This one is
+        app/apple-icon.png, square to the edge on purpose — iOS applies its
+        own corner mask, so a pre-rounded file would round twice. */}
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     {/* Paints the browser chrome to match --background in each theme, so the

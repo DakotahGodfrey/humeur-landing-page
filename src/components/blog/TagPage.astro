@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import PostCard from "@/components/blog/PostCard.astro"
+import TagList from "@/components/blog/TagList.astro"
+import { tagsInUse, type Post } from "@/lib/posts"
+import { tagBlurb, tagLabel, type TagKey } from "@/lib/tags"
+import { localePath, resolveLocale, useTranslations } from "@/i18n"
+
+/** One tag's posts. Shared by `/blog/tags/[tag]/` and its prefixed twin — see
+ *  the note in BlogIndex.astro. */
+
+interface Props {
+  tag: TagKey
+  posts: Post[]
+}
+
+const { tag, posts } = Astro.props
+
+const locale = resolveLocale(Astro.currentLocale)
+const t = useTranslations(locale)
+const allTags = await tagsInUse(locale)
+const label = tagLabel(tag, t)
+const blurb = tagBlurb(tag, t)
+---
+
+<BaseLayout title={`${label} — ${t.blog.heading} — Humeur`} description={blurb}>
+  <div class="mx-auto w-full max-w-[62rem] px-4 py-12 sm:px-8 sm:py-16">
+    <a
+      href={localePath("/blog/", locale)}
+      class="mb-8 inline-block font-mono text-[10px] tracking-[0.15em] text-muted-foreground uppercase no-underline hover:text-foreground"
+    >
+      ← {t.blog.backToBlog}
+    </a>
+
+    <header class="border-b border-border-strong pb-8">
+      <p class="mb-4 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
+        {t.blog.filedUnder}
+      </p>
+      <h1
+        class="font-display text-[clamp(2rem,6vw,3rem)] leading-[1.06] font-medium tracking-[-0.028em] text-balance"
+      >
+        {label}
+      </h1>
+      <p class="mt-4 max-w-[38rem] text-[17px] text-muted-foreground">{blurb}</p>
+      <TagList tags={allTags} current={tag} class="mt-6" />
+    </header>
+
+    <div>
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </div>
+</BaseLayout>

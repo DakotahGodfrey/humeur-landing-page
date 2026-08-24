@@ -37,6 +37,8 @@ export default {
     skip: "Skip to content",
     primary: "Primary",
     footer: "Footer",
+    /** Accessible name for the language picker in the header. */
+    language: "Language",
     // Root-relative, not bare fragments. The header renders on every route,
     // and "#split" from /blog/ scrolls to nothing.
     items: [
@@ -146,6 +148,9 @@ export default {
     lead: "Write freeform when you want to. Switch to structured when you need the prompts to get started.",
     // both: "Some days there's plenty to say. Some days all you need is to pick a colour and move on. Both are valid, and a day you didn't log is still information.",
     fieldsLabel: "Structured fields",
+    /** The panel's meta line. Counted rather than written out, so adding a
+     *  field below can't leave the number behind. */
+    fieldsCount: "{count} fields",
     fields: [
       { name: "Sleep", body: "Hours, on a slider." },
       {
@@ -197,6 +202,9 @@ export default {
     filesNote:
       "Data files always contain your full history, whatever range is on screen.",
     caption: "A printed summary: month grids, mood scale, facts and figures.",
+    /** Accessible name for the reproduction of the export itself, which is
+     *  built from live markup rather than shipped as an image. */
+    sheetLabel: "Example of the printed provider summary",
     pull: "A mood history is a medical record about you. It's never behind a paywall.",
   },
 
@@ -402,6 +410,9 @@ export default {
     disclaimer:
       "This is one person's writing about mood tracking, not medical advice, diagnosis, or treatment. It isn't a substitute for talking to a healthcare provider, and nothing here is tailored to your situation. If you're in crisis, contact your local emergency number or a crisis line in your region.",
     crisisCta: "Crisis resources",
+    /** Shown above a post that has no row in the reader's locale and is
+     *  falling back to its en-CA original. Never on an en-CA page. */
+    notTranslated: "This piece hasn't been translated yet. The English version is shown below.",
   },
 
   sheet: {
@@ -420,11 +431,126 @@ export default {
     daysLogged: "Days logged",
     notLogged: "Not logged",
     averageMood: "Average mood",
-    lowest: "Lowest recorded",
-    highest: "Highest recorded",
+    /* Whole sentences, because the punctuation is part of the language:
+       English writes "Lowest recorded: Crisis." and French puts a space
+       before the colon. Assembling them in the component hardcodes English
+       punctuation into every locale. */
+    lowest: "Lowest recorded: {mood}.",
+    highest: "Highest recorded: {mood}.",
     mix: "Mood mix",
     entries: "recorded entries",
     admissions: "Hospital admissions",
     fine: "Self-recorded mood journal. Not a clinical assessment.",
+  },
+
+  /**
+   * Mood labels, keyed by the slug in src/lib/moodScale.ts.
+   *
+   * They live here rather than on MOOD_SCALE because they are words. The
+   * scores, the colours and the ordering are the same in every language and
+   * are load-bearing; only these change. Taken from the app's own messages so
+   * the mockup can't drift from the product.
+   */
+  moods: {
+    crisis: "Crisis",
+    awful: "Awful",
+    bad: "Bad",
+    "not-great": "Not great",
+    okay: "Okay",
+    good: "Good",
+    great: "Great",
+  },
+
+  /**
+   * Calendar vocabulary for the printed summary.
+   *
+   * Assembled from these rather than through toLocaleDateString, for the
+   * reason src/lib/calendar.ts already gives: the printed export has no
+   * commas and puts the day before the month, and this mockup sits on the
+   * page beside a picture of that export, so the two have to agree.
+   *
+   * `months` is written as the language writes a month inside a sentence —
+   * capitalized in English, lowercase in French. The grid header applies
+   * `capitalize` rather than carrying a second array for title case.
+   *
+   * The `{name}` templates are filled by `fill()` in src/i18n. Word order
+   * differs between languages, so these are sentences with holes in them and
+   * not fragments to concatenate.
+   */
+  calendar: {
+    months: [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December",
+    ],
+    monthsShort: [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    ],
+    /** Sunday-first, matching the app's month view and the printed export. */
+    weekdaysPrint: ["SU", "MO", "TU", "WE", "TH", "FR", "SA"],
+    weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    /** "Fri 1 May 2026" — the export header. */
+    dateLong: "{weekday} {day} {month} {year}",
+    /** How the language writes the first of the month, where that differs
+     *  from the bare numeral — "1er" in French. Empty means it doesn't. */
+    firstOfMonth: "",
+    /** "1 May 2026" and "8 August 2026" — the short form and the post dates. */
+    dateShort: "{day} {month} {year}",
+    dateSpoken: "{day} {month} {year}",
+    monthSummary:
+      "{month} {year}: {logged} of {total} days logged, {splits} split between morning and evening",
+    monthSummaryAdmissions: ", {admissions} days marked as a hospital admission",
+    dayNoEntry: "{date}, no entry",
+    dayAllDay: "{date}, {mood} all day",
+    daySplit: "{date}, {am} in the morning, {pm} in the evening",
+    dayAdmission: ", hospital admission",
+  },
+
+  /**
+   * The blog's tag vocabulary. The keys are fixed in src/lib/tags.ts and are
+   * what Notion is authored against; the words are here, because they are
+   * words. Adding a tag is still a decision made in tags.ts — adding one here
+   * without a key there does nothing.
+   */
+  tags: {
+    tracking: {
+      label: "Tracking",
+      blurb: "The habit itself — what to record, how often, and what to do about the days you miss.",
+    },
+    patterns: {
+      label: "Patterns",
+      blurb: "Reading a month or a year of your own entries without over-reading them.",
+    },
+    appointments: {
+      label: "Appointments",
+      blurb: "Bringing a record to a provider, and what tends to be useful once you're in the room.",
+    },
+    notes: {
+      label: "Notes",
+      blurb: "The written half of an entry: what's worth keeping, and what to leave out.",
+    },
+    privacy: {
+      label: "Privacy",
+      blurb: "Encryption, what a server can and can't see, and who holds the keys.",
+    },
+    product: {
+      label: "Product",
+      blurb: "What shipped, what changed, and why a decision went the way it did.",
+    },
+    intro: {
+      label: "Intro",
+      blurb: "Starting points — what Humeur is, and what it's for.",
+    },
+    about: {
+      label: "About",
+      blurb: "The project behind the app: why it exists, and how it gets built.",
+    },
+  },
+
+  notFound: {
+    label: "404 Not Found",
+    heading: "404 - Page Not Found",
+    body: "Sorry, the page you are looking for doesn't exist.",
+    home: "Go back to homepage",
   },
 } as const

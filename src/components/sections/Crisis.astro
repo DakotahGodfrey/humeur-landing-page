@@ -2,7 +2,7 @@
 import Section from "../Section.astro"
 import Shot from "../Shot.astro"
 import { shots } from "@/lib/shots"
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
 /**
  * Calm, short, never alarming. It reassures by existing, not by shouting.
@@ -15,7 +15,7 @@ import { useTranslations } from "@/i18n"
  * on the page for the same reason.
  */
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 ---
 
 <Section id="crisis" index="10" label={t.crisis.section}>

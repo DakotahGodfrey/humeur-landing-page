@@ -5,14 +5,15 @@ import vercel from "@astrojs/vercel"
 /**
  * Humeur landing page.
  *
- * i18n is configured with en-CA as the only locale for now. The copy is
- * already written in Canadian spelling ("colour", "counsellor"), so this is
- * the honest tag rather than a bare `en`.
+ * i18n ships en-CA and fr-CA. Both tags are regional on purpose: the English
+ * copy is written in Canadian spelling ("colour", "counsellor"), and the
+ * French is federal-standard Canadian French rather than a European variety.
  *
- * Adding fr-CA, es-MX and de later is a data change — add the tag here, add a
- * dictionary in src/i18n/ui.ts, and add src/pages/[locale]/index.astro. With
- * prefixDefaultLocale false, en-CA keeps serving from `/` and the others get
- * `/fr-ca/`, `/es-mx/`, `/de/`.
+ * Adding es-MX and de is a data change — add the tag here, add a dictionary
+ * in src/i18n/, and register it in src/i18n/index.ts. The routes under
+ * src/pages/[locale]/ are generated from `prefixedLocales`, so no new page
+ * files are needed. With prefixDefaultLocale false, en-CA serves from `/` and
+ * everything else from `/fr-ca/`, `/es-mx/`, `/de/`.
  *
  * Note the app itself uses `en` (see i18n/routing.ts). If these two ever need
  * to share a locale negotiator, one side has to move — flagged, not decided.
@@ -22,10 +23,10 @@ export default defineConfig({
   output: "static",
   i18n: {
     defaultLocale: "en-CA",
-    locales: ["en-CA"],
+    locales: ["en-CA", "fr-CA"],
     routing: {
-      // en-CA serves from `/` unprefixed; the other three will get
-      // `/fr-ca/`, `/es-mx/`, `/de/` when they land.
+      // en-CA serves from `/` unprefixed; the others get `/fr-ca/`, and
+      // `/es-mx/`, `/de/` when they land.
       prefixDefaultLocale: false,
     },
   },

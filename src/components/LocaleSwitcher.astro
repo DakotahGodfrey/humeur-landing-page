@@ -1,0 +1,46 @@
+---
+import {
+  localeCodes,
+  localeNames,
+  locales,
+  resolveLocale,
+  switchLocalePath,
+  useTranslations,
+} from "@/i18n"
+
+/**
+ * The language picker.
+ *
+ * It links to the same page in the other language rather than to that
+ * language's home page. Dropping someone on the landing page because they
+ * asked to read the post they were already on is the most common way this
+ * control gets built wrong, and `switchLocalePath` is what avoids it.
+ *
+ * Rendered as links, not a <select>: there are two languages, the targets are
+ * real URLs a reader can bookmark or open in a new tab, and a picker that
+ * needs JavaScript to navigate is a picker that fails before hydration.
+ *
+ * Each link carries `lang` and `hreflang` so a screen reader announces
+ * "Français" in French rather than reading it with an English voice.
+ */
+
+const current = resolveLocale(Astro.currentLocale)
+const t = useTranslations(current)
+const others = locales.filter((locale) => locale !== current)
+---
+
+<nav class="flex items-center" aria-label={t.nav.language}>
+  {
+    others.map((locale) => (
+      <a
+        href={switchLocalePath(Astro.url.pathname, locale)}
+        lang={locale}
+        hreflang={locale}
+        aria-label={localeNames[locale]}
+        class="inline-flex items-center rounded-lg border-[1.5px] border-border-strong px-2.5 py-1.25 font-mono text-[11px] tracking-[0.06em] text-muted-foreground uppercase no-underline hover:bg-accent-surface hover:text-foreground"
+      >
+        {localeCodes[locale]}
+      </a>
+    ))
+  }
+</nav>

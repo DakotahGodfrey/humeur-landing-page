@@ -2,7 +2,7 @@
 import Section from "../Section.astro"
 import Shot from "../Shot.astro"
 import { shots } from "@/lib/shots"
-import { useTranslations } from "@/i18n"
+import { resolveLocale, useTranslations } from "@/i18n"
 
 /**
  * Completes the loop: track → see the pattern → find someone → hand them the
@@ -19,7 +19,7 @@ import { useTranslations } from "@/i18n"
  * three of Shot's axes are exercised at once.
  */
 
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 ---
 
 <Section id="providers" index="07" label={t.providers.section}>

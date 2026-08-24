@@ -1,7 +1,7 @@
 ---
 import TagList from "./TagList.astro"
-import { formatPostDate, isoDate, type Post } from "@/lib/posts"
-import { useTranslations } from "@/i18n"
+import { formatPostDate, isoDate, postPath, type Post } from "@/lib/posts"
+import { resolveLocale, useTranslations } from "@/i18n"
 import type { TagKey } from "@/lib/tags"
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { post } = Astro.props
-const t = useTranslations()
+const t = useTranslations(resolveLocale(Astro.currentLocale))
 const { title, description, pubDate, tags, draft } = post.data
 ---
 
@@ -19,7 +19,7 @@ const { title, description, pubDate, tags, draft } = post.data
       datetime={isoDate(pubDate)}
       class="font-mono text-[11px] tracking-[0.06em] text-muted-foreground"
     >
-      {formatPostDate(pubDate)}
+      {formatPostDate(pubDate, t)}
     </time>
     {
       draft && (
@@ -32,7 +32,7 @@ const { title, description, pubDate, tags, draft } = post.data
 
   <div>
     <h2 class="font-display text-xl leading-[1.25] font-semibold tracking-[-0.015em] text-balance">
-      <a href={`/blog/${post.id}/`} class="no-underline hover:underline">{title}</a>
+      <a href={postPath(post)} class="no-underline hover:underline">{title}</a>
     </h2>
     {/* Omitted rather than filled in when the post has no Summary — see the
         note on `description` in content.config.ts. */}
